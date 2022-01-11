@@ -1,0 +1,32 @@
+
+1. boa (a simple web server for Embedded Linux)
+http://www.boa.org/
+
+2. goahead (a simple web server for Embedded Linux)
+https://www.embedthis.com/goahead/
+
+3. lighttpd (a simple web server for Embedded Linux)
+https://www.lighttpd.net/
+
+4. Net-SNMP
+http://www.net-snmp.org/
+
+5. OpenLLDP
+http://openlldp.sourceforge.net/
+
+6. Wireless Tools 
+https://hewlettpackard.github.io/wireless-tools/Tools.html
+
+7. GDB
+http://www.linuxfromscratch.org/blfs/view/7.9/general/gdb.html
+
+8. jansson (解譯JSON語法的套件)
+https://digip.org/jansson/
+
+9. ubus (OpenWRT ubus Official WebSite)
+https://openwrt.org/docs/techref/ubus
+
+10. Hostapd
+https://w1.fi/hostapd/
+
+11. 

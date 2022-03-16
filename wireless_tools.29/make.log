@@ -1,0 +1,736 @@
+<picasso-devel-pc>picasso@:~/GitHub/OpenSource/wireless_tools.29(main)% 
+<picasso-devel-pc>picasso@:~/GitHub/OpenSource/wireless_tools.29(main)% time make; 
+cp wireless.21.h wireless.h
+gcc -Os -W -Wall -Wstrict-prototypes -Wmissing-prototypes -Wshadow -Wpointer-arith -Wcast-qual -Winline -I. -MMD     -fPIC -c -o iwlib.so iwlib.c
+iwlib.c: In function ‘iw_enum_devices’:
+iwlib.c:254:7: warning: ignoring return value of ‘fgets’, declared with attribute warn_unused_result [-Wunused-result]
+  254 |       fgets(buff, sizeof(buff), fh);
+      |       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+iwlib.c:255:7: warning: ignoring return value of ‘fgets’, declared with attribute warn_unused_result [-Wunused-result]
+  255 |       fgets(buff, sizeof(buff), fh);
+      |       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+iwlib.c: In function ‘iw_get_kernel_we_version’:
+iwlib.c:337:3: warning: ignoring return value of ‘fgets’, declared with attribute warn_unused_result [-Wunused-result]
+  337 |   fgets(buff, sizeof(buff), fh);
+      |   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+iwlib.c:353:3: warning: ignoring return value of ‘fgets’, declared with attribute warn_unused_result [-Wunused-result]
+  353 |   fgets(buff, sizeof(buff), fh);
+      |   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from iwlib.c:14:
+iwlib.c: In function ‘print_iface_version_info’:
+iwlib.h:522:1: warning: inlining failed in call to ‘iw_get_ext’: call is unlikely and code size would grow [-Winline]
+  522 | iw_get_ext(int   skfd,  /* Socket to the kernel */
+      | ^~~~~~~~~~
+iwlib.c:387:6: note: called from here
+  387 |   if(iw_get_ext(skfd, ifname, SIOCGIWNAME, &wrq) < 0)
+      |      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from iwlib.c:14:
+iwlib.h:522:1: warning: inlining failed in call to ‘iw_get_ext’: call is unlikely and code size would grow [-Winline]
+  522 | iw_get_ext(int   skfd,  /* Socket to the kernel */
+      | ^~~~~~~~~~
+iwlib.c:396:6: note: called from here
+  396 |   if(iw_get_ext(skfd, ifname, SIOCGIWRANGE, &wrq) < 0)
+      |      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from iwlib.c:14:
+iwlib.c: In function ‘iw_get_range_info’:
+iwlib.h:522:1: warning: inlining failed in call to ‘iw_get_ext’: call is unlikely and code size would grow [-Winline]
+  522 | iw_get_ext(int   skfd,  /* Socket to the kernel */
+      | ^~~~~~~~~~
+iwlib.c:483:6: note: called from here
+  483 |   if(iw_get_ext(skfd, ifname, SIOCGIWRANGE, &wrq) < 0)
+      |      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from iwlib.c:14:
+iwlib.c: In function ‘iw_get_priv_info’:
+iwlib.h:522:1: warning: inlining failed in call to ‘iw_get_ext’: call is unlikely and code size would grow [-Winline]
+  522 | iw_get_ext(int   skfd,  /* Socket to the kernel */
+      | ^~~~~~~~~~
+iwlib.c:623:10: note: called from here
+  623 |       if(iw_get_ext(skfd, ifname, SIOCGIWPRIV, &wrq) >= 0)
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from iwlib.c:14:
+iwlib.c: In function ‘iw_set_basic_config’:
+iwlib.h:522:1: warning: inlining failed in call to ‘iw_get_ext’: call is unlikely and code size would grow [-Winline]
+  522 | iw_get_ext(int   skfd,  /* Socket to the kernel */
+      | ^~~~~~~~~~
+iwlib.c:748:6: note: called from here
+  748 |   if(iw_get_ext(skfd, ifname, SIOCGIWNAME, &wrq) < 0)
+      |      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from iwlib.c:14:
+iwlib.h:522:1: warning: inlining failed in call to ‘iw_get_ext’: call is unlikely and code size would grow [-Winline]
+  522 | iw_get_ext(int   skfd,  /* Socket to the kernel */
+      | ^~~~~~~~~~
+iwlib.c:761:10: note: called from here
+  761 |       if(iw_get_ext(skfd, ifname, SIOCSIWMODE, &wrq) < 0)
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from iwlib.c:14:
+iwlib.h:506:1: warning: inlining failed in call to ‘iw_set_ext’: call is unlikely and code size would grow [-Winline]
+  506 | iw_set_ext(int   skfd,  /* Socket to the kernel */
+      | ^~~~~~~~~~
+iwlib.c:773:10: note: called from here
+  773 |       if(iw_set_ext(skfd, ifname, SIOCSIWFREQ, &wrq) < 0)
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from iwlib.c:14:
+iwlib.h:506:1: warning: inlining failed in call to ‘iw_set_ext’: call is unlikely and code size would grow [-Winline]
+  506 | iw_set_ext(int   skfd,  /* Socket to the kernel */
+      | ^~~~~~~~~~
+iwlib.c:793:7: note: called from here
+  793 |    if(iw_set_ext(skfd, ifname, SIOCSIWENCODE, &wrq) < 0)
+      |       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from iwlib.c:14:
+iwlib.h:506:1: warning: inlining failed in call to ‘iw_set_ext’: call is unlikely and code size would grow [-Winline]
+  506 | iw_set_ext(int   skfd,  /* Socket to the kernel */
+      | ^~~~~~~~~~
+iwlib.c:813:10: note: called from here
+  813 |       if(iw_set_ext(skfd, ifname, SIOCSIWENCODE, &wrq) < 0)
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from iwlib.c:14:
+iwlib.h:506:1: warning: inlining failed in call to ‘iw_set_ext’: call is unlikely and code size would grow [-Winline]
+  506 | iw_set_ext(int   skfd,  /* Socket to the kernel */
+      | ^~~~~~~~~~
+iwlib.c:827:10: note: called from here
+  827 |       if(iw_set_ext(skfd, ifname, SIOCSIWNWID, &wrq) < 0)
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from iwlib.c:14:
+iwlib.h:506:1: warning: inlining failed in call to ‘iw_set_ext’: call is unlikely and code size would grow [-Winline]
+  506 | iw_set_ext(int   skfd,  /* Socket to the kernel */
+      | ^~~~~~~~~~
+iwlib.c:850:10: note: called from here
+  850 |       if(iw_set_ext(skfd, ifname, SIOCSIWESSID, &wrq) < 0)
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from iwlib.c:14:
+iwlib.c: In function ‘iw_get_basic_config’:
+iwlib.h:522:1: warning: inlining failed in call to ‘iw_get_ext’: call is unlikely and code size would grow [-Winline]
+  522 | iw_get_ext(int   skfd,  /* Socket to the kernel */
+      | ^~~~~~~~~~
+iwlib.c:673:6: note: called from here
+  673 |   if(iw_get_ext(skfd, ifname, SIOCGIWNAME, &wrq) < 0)
+      |      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from iwlib.c:14:
+iwlib.h:522:1: warning: inlining failed in call to ‘iw_get_ext’: call is unlikely and code size would grow [-Winline]
+  522 | iw_get_ext(int   skfd,  /* Socket to the kernel */
+      | ^~~~~~~~~~
+iwlib.c:683:6: note: called from here
+  683 |   if(iw_get_ext(skfd, ifname, SIOCGIWNWID, &wrq) >= 0)
+      |      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from iwlib.c:14:
+iwlib.h:522:1: warning: inlining failed in call to ‘iw_get_ext’: call is unlikely and code size would grow [-Winline]
+  522 | iw_get_ext(int   skfd,  /* Socket to the kernel */
+      | ^~~~~~~~~~
+iwlib.c:690:6: note: called from here
+  690 |   if(iw_get_ext(skfd, ifname, SIOCGIWFREQ, &wrq) >= 0)
+      |      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from iwlib.c:14:
+iwlib.h:522:1: warning: inlining failed in call to ‘iw_get_ext’: call is unlikely and code size would grow [-Winline]
+  522 | iw_get_ext(int   skfd,  /* Socket to the kernel */
+      | ^~~~~~~~~~
+iwlib.c:701:6: note: called from here
+  701 |   if(iw_get_ext(skfd, ifname, SIOCGIWENCODE, &wrq) >= 0)
+      |      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from iwlib.c:14:
+iwlib.h:522:1: warning: inlining failed in call to ‘iw_get_ext’: call is unlikely and code size would grow [-Winline]
+  522 | iw_get_ext(int   skfd,  /* Socket to the kernel */
+      | ^~~~~~~~~~
+iwlib.c:712:6: note: called from here
+  712 |   if(iw_get_ext(skfd, ifname, SIOCGIWESSID, &wrq) >= 0)
+      |      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from iwlib.c:14:
+iwlib.h:522:1: warning: inlining failed in call to ‘iw_get_ext’: call is unlikely and code size would grow [-Winline]
+  522 | iw_get_ext(int   skfd,  /* Socket to the kernel */
+      | ^~~~~~~~~~
+iwlib.c:719:6: note: called from here
+  719 |   if(iw_get_ext(skfd, ifname, SIOCGIWMODE, &wrq) >= 0)
+      |      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from iwlib.c:14:
+iwlib.c: In function ‘iw_get_stats’:
+iwlib.h:522:1: warning: inlining failed in call to ‘iw_get_ext’: call is unlikely and code size would grow [-Winline]
+  522 | iw_get_ext(int   skfd,  /* Socket to the kernel */
+      | ^~~~~~~~~~
+iwlib.c:1276:10: note: called from here
+ 1276 |       if(iw_get_ext(skfd, ifname, SIOCGIWSTATS, &wrq) < 0)
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from iwlib.c:14:
+iwlib.c: In function ‘iw_process_scan’:
+iwlib.h:506:1: warning: inlining failed in call to ‘iw_set_ext’: call is unlikely and code size would grow [-Winline]
+  506 | iw_set_ext(int   skfd,  /* Socket to the kernel */
+      | ^~~~~~~~~~
+iwlib.c:3058:11: note: called from here
+ 3058 |       if((iw_set_ext(skfd, ifname, SIOCSIWSCAN, &wrq) < 0)
+      |           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from iwlib.c:14:
+iwlib.h:522:1: warning: inlining failed in call to ‘iw_get_ext’: call is unlikely and code size would grow [-Winline]
+  522 | iw_get_ext(int   skfd,  /* Socket to the kernel */
+      | ^~~~~~~~~~
+iwlib.c:3082:6: note: called from here
+ 3082 |   if(iw_get_ext(skfd, ifname, SIOCGIWSCAN, &wrq) < 0)
+      |      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+gcc -shared -o libiw.so.29 -Wl,-soname,libiw.so.29  -lm -lc iwlib.so
+gcc -Os -W -Wall -Wstrict-prototypes -Wmissing-prototypes -Wshadow -Wpointer-arith -Wcast-qual -Winline -I. -MMD     -c iwconfig.c
+iwconfig.c: In function ‘display_info’:
+iwconfig.c:225:12: warning: variable ‘channel’ set but not used [-Wunused-but-set-variable]
+  225 |       int  channel = -1;  /* Converted to channel */
+      |            ^~~~~~~
+In file included from iwconfig.c:14:
+iwconfig.c: In function ‘set_commit_info’:
+iwlib.h:506:1: warning: inlining failed in call to ‘iw_set_ext’: call is unlikely and code size would grow [-Winline]
+  506 | iw_set_ext(int   skfd,  /* Socket to the kernel */
+      | ^~~~~~~~~~
+iwconfig.c:1661:6: note: called from here
+ 1661 |   if(iw_set_ext(skfd, ifname, SIOCSIWCOMMIT, &wrq) < 0)
+      |      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from iwconfig.c:14:
+iwconfig.c: In function ‘set_modulation_info’:
+iwlib.h:522:1: warning: inlining failed in call to ‘iw_get_ext’: call is unlikely and code size would grow [-Winline]
+  522 | iw_get_ext(int   skfd,  /* Socket to the kernel */
+      | ^~~~~~~~~~
+iwconfig.c:1591:7: note: called from here
+ 1591 |    if(iw_get_ext(skfd, ifname, SIOCGIWMODUL, &wrq) < 0)
+      |       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from iwconfig.c:14:
+iwlib.h:506:1: warning: inlining failed in call to ‘iw_set_ext’: call is unlikely and code size would grow [-Winline]
+  506 | iw_set_ext(int   skfd,  /* Socket to the kernel */
+      | ^~~~~~~~~~
+iwconfig.c:1638:6: note: called from here
+ 1638 |   if(iw_set_ext(skfd, ifname, SIOCSIWMODUL, &wrq) < 0)
+      |      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from iwconfig.c:14:
+iwconfig.c: In function ‘set_frag_info’:
+iwlib.h:522:1: warning: inlining failed in call to ‘iw_get_ext’: call is unlikely and code size would grow [-Winline]
+  522 | iw_get_ext(int   skfd,  /* Socket to the kernel */
+      | ^~~~~~~~~~
+iwconfig.c:1544:9: note: called from here
+ 1544 |      if(iw_get_ext(skfd, ifname, SIOCGIWFRAG, &wrq) < 0)
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from iwconfig.c:14:
+iwlib.h:506:1: warning: inlining failed in call to ‘iw_set_ext’: call is unlikely and code size would grow [-Winline]
+  506 | iw_set_ext(int   skfd,  /* Socket to the kernel */
+      | ^~~~~~~~~~
+iwconfig.c:1561:6: note: called from here
+ 1561 |   if(iw_set_ext(skfd, ifname, SIOCSIWFRAG, &wrq) < 0)
+      |      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from iwconfig.c:14:
+iwconfig.c: In function ‘set_rts_info’:
+iwlib.h:522:1: warning: inlining failed in call to ‘iw_get_ext’: call is unlikely and code size would grow [-Winline]
+  522 | iw_get_ext(int   skfd,  /* Socket to the kernel */
+      | ^~~~~~~~~~
+iwconfig.c:1492:9: note: called from here
+ 1492 |      if(iw_get_ext(skfd, ifname, SIOCGIWRTS, &wrq) < 0)
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from iwconfig.c:14:
+iwlib.h:506:1: warning: inlining failed in call to ‘iw_set_ext’: call is unlikely and code size would grow [-Winline]
+  506 | iw_set_ext(int   skfd,  /* Socket to the kernel */
+      | ^~~~~~~~~~
+iwconfig.c:1508:6: note: called from here
+ 1508 |   if(iw_set_ext(skfd, ifname, SIOCSIWRTS, &wrq) < 0)
+      |      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from iwconfig.c:14:
+iwconfig.c: In function ‘set_sens_info’:
+iwlib.h:506:1: warning: inlining failed in call to ‘iw_set_ext’: call is unlikely and code size would grow [-Winline]
+  506 | iw_set_ext(int   skfd,  /* Socket to the kernel */
+      | ^~~~~~~~~~
+iwconfig.c:1388:6: note: called from here
+ 1388 |   if(iw_set_ext(skfd, ifname, SIOCSIWSENS, &wrq) < 0)
+      |      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from iwconfig.c:14:
+iwconfig.c: In function ‘set_nwid_info’:
+iwlib.h:522:1: warning: inlining failed in call to ‘iw_get_ext’: call is unlikely and code size would grow [-Winline]
+  522 | iw_get_ext(int   skfd,  /* Socket to the kernel */
+      | ^~~~~~~~~~
+iwconfig.c:1174:5: note: called from here
+ 1174 |  if(iw_get_ext(skfd, ifname, SIOCGIWNWID, &wrq) < 0)
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from iwconfig.c:14:
+iwlib.h:506:1: warning: inlining failed in call to ‘iw_set_ext’: call is unlikely and code size would grow [-Winline]
+  506 | iw_set_ext(int   skfd,  /* Socket to the kernel */
+      | ^~~~~~~~~~
+iwconfig.c:1193:6: note: called from here
+ 1193 |   if(iw_set_ext(skfd, ifname, SIOCSIWNWID, &wrq) < 0)
+      |      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from iwconfig.c:14:
+iwconfig.c: In function ‘set_bitrate_info’:
+iwlib.h:522:1: warning: inlining failed in call to ‘iw_get_ext’: call is unlikely and code size would grow [-Winline]
+  522 | iw_get_ext(int   skfd,  /* Socket to the kernel */
+      | ^~~~~~~~~~
+iwconfig.c:831:7: note: called from here
+  831 |    if(iw_get_ext(skfd, ifname, SIOCGIWRATE, &wrq) < 0)
+      |       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from iwconfig.c:14:
+iwlib.h:506:1: warning: inlining failed in call to ‘iw_set_ext’: call is unlikely and code size would grow [-Winline]
+  506 | iw_set_ext(int   skfd,  /* Socket to the kernel */
+      | ^~~~~~~~~~
+iwconfig.c:879:6: note: called from here
+  879 |   if(iw_set_ext(skfd, ifname, SIOCSIWRATE, &wrq) < 0)
+      |      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from iwconfig.c:14:
+iwconfig.c: In function ‘set_apaddr_info’:
+iwlib.h:506:1: warning: inlining failed in call to ‘iw_set_ext’: call is unlikely and code size would grow [-Winline]
+  506 | iw_set_ext(int   skfd,  /* Socket to the kernel */
+      | ^~~~~~~~~~
+iwconfig.c:1239:6: note: called from here
+ 1239 |   if(iw_set_ext(skfd, ifname, SIOCSIWAP, &wrq) < 0)
+      |      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from iwconfig.c:14:
+iwconfig.c: In function ‘set_nick_info’:
+iwlib.h:506:1: warning: inlining failed in call to ‘iw_set_ext’: call is unlikely and code size would grow [-Winline]
+  506 | iw_set_ext(int   skfd,  /* Socket to the kernel */
+      | ^~~~~~~~~~
+iwconfig.c:1144:6: note: called from here
+ 1144 |   if(iw_set_ext(skfd, ifname, SIOCSIWNICKN, &wrq) < 0)
+      |      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from iwconfig.c:14:
+iwconfig.c: In function ‘set_mode_info’:
+iwlib.h:506:1: warning: inlining failed in call to ‘iw_set_ext’: call is unlikely and code size would grow [-Winline]
+  506 | iw_set_ext(int   skfd,  /* Socket to the kernel */
+      | ^~~~~~~~~~
+iwconfig.c:729:6: note: called from here
+  729 |   if(iw_set_ext(skfd, ifname, SIOCSIWMODE, &wrq) < 0)
+      |      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from iwconfig.c:14:
+iwconfig.c: In function ‘set_enc_info’:
+iwlib.h:522:1: warning: inlining failed in call to ‘iw_get_ext’: call is unlikely and code size would grow [-Winline]
+  522 | iw_get_ext(int   skfd,  /* Socket to the kernel */
+      | ^~~~~~~~~~
+iwconfig.c:906:10: note: called from here
+  906 |       if(iw_get_ext(skfd, ifname, SIOCGIWENCODE, &wrq) < 0)
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from iwconfig.c:14:
+iwlib.h:506:1: warning: inlining failed in call to ‘iw_set_ext’: call is unlikely and code size would grow [-Winline]
+  506 | iw_set_ext(int   skfd,  /* Socket to the kernel */
+      | ^~~~~~~~~~
+iwconfig.c:991:6: note: called from here
+  991 |   if(iw_set_ext(skfd, ifname, SIOCSIWENCODE, &wrq) < 0)
+      |      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from iwconfig.c:14:
+iwconfig.c: In function ‘set_freq_info’:
+iwlib.h:522:1: warning: inlining failed in call to ‘iw_get_ext’: call is unlikely and code size would grow [-Winline]
+  522 | iw_get_ext(int   skfd,  /* Socket to the kernel */
+      | ^~~~~~~~~~
+iwconfig.c:760:7: note: called from here
+  760 |    if(iw_get_ext(skfd, ifname, SIOCGIWFREQ, &wrq) < 0)
+      |       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from iwconfig.c:14:
+iwlib.h:506:1: warning: inlining failed in call to ‘iw_set_ext’: call is unlikely and code size would grow [-Winline]
+  506 | iw_set_ext(int   skfd,  /* Socket to the kernel */
+      | ^~~~~~~~~~
+iwconfig.c:800:6: note: called from here
+  800 |   if(iw_set_ext(skfd, ifname, SIOCSIWFREQ, &wrq) < 0)
+      |      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from iwconfig.c:14:
+iwconfig.c: In function ‘set_retry_info’:
+iwlib.h:506:1: warning: inlining failed in call to ‘iw_set_ext’: call is unlikely and code size would grow [-Winline]
+  506 | iw_set_ext(int   skfd,  /* Socket to the kernel */
+      | ^~~~~~~~~~
+iwconfig.c:1456:6: note: called from here
+ 1456 |   if(iw_set_ext(skfd, ifname, SIOCSIWRETRY, &wrq) < 0)
+      |      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from iwconfig.c:14:
+iwconfig.c: In function ‘set_txpower_info’:
+iwlib.h:522:1: warning: inlining failed in call to ‘iw_get_ext’: call is unlikely and code size would grow [-Winline]
+  522 | iw_get_ext(int   skfd,  /* Socket to the kernel */
+      | ^~~~~~~~~~
+iwconfig.c:1278:9: note: called from here
+ 1278 |      if(iw_get_ext(skfd, ifname, SIOCGIWTXPOW, &wrq) < 0)
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from iwconfig.c:14:
+iwlib.h:522:1: warning: inlining failed in call to ‘iw_get_ext’: call is unlikely and code size would grow [-Winline]
+  522 | iw_get_ext(int   skfd,  /* Socket to the kernel */
+      | ^~~~~~~~~~
+iwconfig.c:1287:6: note: called from here
+ 1287 |   if(iw_get_ext(skfd, ifname, SIOCGIWTXPOW, &wrq) < 0)
+      |      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from iwconfig.c:14:
+iwlib.h:506:1: warning: inlining failed in call to ‘iw_set_ext’: call is unlikely and code size would grow [-Winline]
+  506 | iw_set_ext(int   skfd,  /* Socket to the kernel */
+      | ^~~~~~~~~~
+iwconfig.c:1358:6: note: called from here
+ 1358 |   if(iw_set_ext(skfd, ifname, SIOCSIWTXPOW, &wrq) < 0)
+      |      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from iwconfig.c:14:
+iwconfig.c: In function ‘set_essid_info’:
+iwlib.h:522:1: warning: inlining failed in call to ‘iw_get_ext’: call is unlikely and code size would grow [-Winline]
+  522 | iw_get_ext(int   skfd,  /* Socket to the kernel */
+      | ^~~~~~~~~~
+iwconfig.c:639:5: note: called from here
+  639 |  if(iw_get_ext(skfd, ifname, SIOCGIWESSID, &wrq) < 0)
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from iwconfig.c:14:
+iwlib.h:506:1: warning: inlining failed in call to ‘iw_set_ext’: call is unlikely and code size would grow [-Winline]
+  506 | iw_set_ext(int   skfd,  /* Socket to the kernel */
+      | ^~~~~~~~~~
+iwconfig.c:691:6: note: called from here
+  691 |   if(iw_set_ext(skfd, ifname, SIOCSIWESSID, &wrq) < 0)
+      |      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from iwconfig.c:14:
+iwconfig.c: In function ‘set_power_info’:
+iwlib.h:522:1: warning: inlining failed in call to ‘iw_get_ext’: call is unlikely and code size would grow [-Winline]
+  522 | iw_get_ext(int   skfd,  /* Socket to the kernel */
+      | ^~~~~~~~~~
+iwconfig.c:1018:5: note: called from here
+ 1018 |  if(iw_get_ext(skfd, ifname, SIOCGIWPOWER, &wrq) < 0)
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from iwconfig.c:14:
+iwlib.h:506:1: warning: inlining failed in call to ‘iw_set_ext’: call is unlikely and code size would grow [-Winline]
+  506 | iw_set_ext(int   skfd,  /* Socket to the kernel */
+      | ^~~~~~~~~~
+iwconfig.c:1107:6: note: called from here
+ 1107 |   if(iw_set_ext(skfd, ifname, SIOCSIWPOWER, &wrq) < 0)
+      |      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from iwconfig.c:14:
+iwconfig.c: In function ‘print_info’:
+iwlib.h:522:1: warning: inlining failed in call to ‘iw_get_ext’: call is unlikely and code size would grow [-Winline]
+  522 | iw_get_ext(int   skfd,  /* Socket to the kernel */
+      | ^~~~~~~~~~
+iwconfig.c:72:6: note: called from here
+   72 |   if(iw_get_ext(skfd, ifname, SIOCGIWAP, &wrq) >= 0)
+      |      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from iwconfig.c:14:
+iwlib.h:522:1: warning: inlining failed in call to ‘iw_get_ext’: call is unlikely and code size would grow [-Winline]
+  522 | iw_get_ext(int   skfd,  /* Socket to the kernel */
+      | ^~~~~~~~~~
+iwconfig.c:79:6: note: called from here
+   79 |   if(iw_get_ext(skfd, ifname, SIOCGIWRATE, &wrq) >= 0)
+      |      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from iwconfig.c:14:
+iwlib.h:522:1: warning: inlining failed in call to ‘iw_get_ext’: call is unlikely and code size would grow [-Winline]
+  522 | iw_get_ext(int   skfd,  /* Socket to the kernel */
+      | ^~~~~~~~~~
+iwconfig.c:87:6: note: called from here
+   87 |   if(iw_get_ext(skfd, ifname, SIOCGIWPOWER, &wrq) >= 0)
+      |      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from iwconfig.c:14:
+iwlib.h:522:1: warning: inlining failed in call to ‘iw_get_ext’: call is unlikely and code size would grow [-Winline]
+  522 | iw_get_ext(int   skfd,  /* Socket to the kernel */
+      | ^~~~~~~~~~
+iwconfig.c:105:6: note: called from here
+  105 |   if(iw_get_ext(skfd, ifname, SIOCGIWNICKN, &wrq) >= 0)
+      |      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from iwconfig.c:14:
+iwlib.h:522:1: warning: inlining failed in call to ‘iw_get_ext’: call is unlikely and code size would grow [-Winline]
+  522 | iw_get_ext(int   skfd,  /* Socket to the kernel */
+      | ^~~~~~~~~~
+iwconfig.c:112:10: note: called from here
+  112 |       if(iw_get_ext(skfd, ifname, SIOCGIWTXPOW, &wrq) >= 0)
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from iwconfig.c:14:
+iwlib.h:522:1: warning: inlining failed in call to ‘iw_get_ext’: call is unlikely and code size would grow [-Winline]
+  522 | iw_get_ext(int   skfd,  /* Socket to the kernel */
+      | ^~~~~~~~~~
+iwconfig.c:120:6: note: called from here
+  120 |   if(iw_get_ext(skfd, ifname, SIOCGIWSENS, &wrq) >= 0)
+      |      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from iwconfig.c:14:
+iwlib.h:522:1: warning: inlining failed in call to ‘iw_get_ext’: call is unlikely and code size would grow [-Winline]
+  522 | iw_get_ext(int   skfd,  /* Socket to the kernel */
+      | ^~~~~~~~~~
+iwconfig.c:129:10: note: called from here
+  129 |       if(iw_get_ext(skfd, ifname, SIOCGIWRETRY, &wrq) >= 0)
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from iwconfig.c:14:
+iwlib.h:522:1: warning: inlining failed in call to ‘iw_get_ext’: call is unlikely and code size would grow [-Winline]
+  522 | iw_get_ext(int   skfd,  /* Socket to the kernel */
+      | ^~~~~~~~~~
+iwconfig.c:137:6: note: called from here
+  137 |   if(iw_get_ext(skfd, ifname, SIOCGIWRTS, &wrq) >= 0)
+      |      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from iwconfig.c:14:
+iwlib.h:522:1: warning: inlining failed in call to ‘iw_get_ext’: call is unlikely and code size would grow [-Winline]
+  522 | iw_get_ext(int   skfd,  /* Socket to the kernel */
+      | ^~~~~~~~~~
+iwconfig.c:144:6: note: called from here
+  144 |   if(iw_get_ext(skfd, ifname, SIOCGIWFRAG, &wrq) >= 0)
+      |      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+gcc   -Os -W -Wall -Wstrict-prototypes -Wmissing-prototypes -Wshadow -Wpointer-arith -Wcast-qual -Winline -I. -MMD     -o iwconfig iwconfig.o libiw.so.29 -lm
+gcc -Os -W -Wall -Wstrict-prototypes -Wmissing-prototypes -Wshadow -Wpointer-arith -Wcast-qual -Winline -I. -MMD     -c iwlist.c
+In file included from iwlist.c:14:
+iwlist.c: In function ‘print_modul_info’:
+iwlib.h:522:1: warning: inlining failed in call to ‘iw_get_ext’: call is unlikely and code size would grow [-Winline]
+  522 | iw_get_ext(int   skfd,  /* Socket to the kernel */
+      | ^~~~~~~~~~
+iwlist.c:2007:7: note: called from here
+ 2007 |    if(iw_get_ext(skfd, ifname, SIOCGIWMODUL, &wrq) >= 0)
+      |       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from iwlist.c:14:
+iwlist.c: In function ‘print_keys_info’:
+iwlib.h:522:1: warning: inlining failed in call to ‘iw_get_ext’: call is unlikely and code size would grow [-Winline]
+  522 | iw_get_ext(int   skfd,  /* Socket to the kernel */
+      | ^~~~~~~~~~
+iwlist.c:1054:7: note: called from here
+ 1054 |    if(iw_get_ext(skfd, ifname, SIOCGIWENCODE, &wrq) < 0)
+      |       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from iwlist.c:14:
+iwlib.h:522:1: warning: inlining failed in call to ‘iw_get_ext’: call is unlikely and code size would grow [-Winline]
+  522 | iw_get_ext(int   skfd,  /* Socket to the kernel */
+      | ^~~~~~~~~~
+iwlist.c:1078:10: note: called from here
+ 1078 |       if(iw_get_ext(skfd, ifname, SIOCGIWENCODE, &wrq) >= 0)
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from iwlist.c:14:
+iwlist.c: In function ‘print_ap_info’:
+iwlib.h:522:1: warning: inlining failed in call to ‘iw_get_ext’: call is unlikely and code size would grow [-Winline]
+  522 | iw_get_ext(int   skfd,  /* Socket to the kernel */
+      | ^~~~~~~~~~
+iwlist.c:1618:6: note: called from here
+ 1618 |   if(iw_get_ext(skfd, ifname, SIOCGIWAPLIST, &wrq) < 0)
+      |      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from iwlist.c:14:
+iwlist.c: In function ‘print_txpower_info’:
+iwlib.h:522:1: warning: inlining failed in call to ‘iw_get_ext’: call is unlikely and code size would grow [-Winline]
+  522 | iw_get_ext(int   skfd,  /* Socket to the kernel */
+      | ^~~~~~~~~~
+iwlist.c:1366:10: note: called from here
+ 1366 |       if(iw_get_ext(skfd, ifname, SIOCGIWTXPOW, &wrq) >= 0)
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from iwlist.c:14:
+iwlist.c: In function ‘print_bitrate_info’:
+iwlib.h:522:1: warning: inlining failed in call to ‘iw_get_ext’: call is unlikely and code size would grow [-Winline]
+  522 | iw_get_ext(int   skfd,  /* Socket to the kernel */
+      | ^~~~~~~~~~
+iwlist.c:984:10: note: called from here
+  984 |       if(iw_get_ext(skfd, ifname, SIOCGIWRATE, &wrq) >= 0)
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from iwlist.c:14:
+iwlib.h:522:1: warning: inlining failed in call to ‘iw_get_ext’: call is unlikely and code size would grow [-Winline]
+  522 | iw_get_ext(int   skfd,  /* Socket to the kernel */
+      | ^~~~~~~~~~
+iwlist.c:995:7: note: called from here
+  995 |    if(iw_get_ext(skfd, ifname, SIOCGIWRATE, &wrq) >= 0)
+      |       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from iwlist.c:14:
+iwlist.c: In function ‘print_freq_info’:
+iwlib.h:522:1: warning: inlining failed in call to ‘iw_get_ext’: call is unlikely and code size would grow [-Winline]
+  522 | iw_get_ext(int   skfd,  /* Socket to the kernel */
+      | ^~~~~~~~~~
+iwlist.c:930:10: note: called from here
+  930 |       if(iw_get_ext(skfd, ifname, SIOCGIWFREQ, &wrq) >= 0)
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from iwlist.c:14:
+iwlist.c: In function ‘print_gen_ie_info’:
+iwlib.h:522:1: warning: inlining failed in call to ‘iw_get_ext’: call is unlikely and code size would grow [-Winline]
+  522 | iw_get_ext(int   skfd,  /* Socket to the kernel */
+      | ^~~~~~~~~~
+iwlist.c:1949:6: note: called from here
+ 1949 |   if(iw_get_ext(skfd, ifname, SIOCGIWGENIE, &wrq) < 0)
+      |      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+iwlist.c:410:1: warning: inlining failed in call to ‘iw_print_gen_ie’: --param max-inline-insns-single limit reached [-Winline]
+  410 | iw_print_gen_ie(unsigned char * buffer,
+      | ^~~~~~~~~~~~~~~
+iwlist.c:1958:2: note: called from here
+ 1958 |  iw_print_gen_ie(buf, wrq.u.data.length);
+      |  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from iwlist.c:14:
+iwlist.c: In function ‘print_wpakeys_info’:
+iwlib.h:522:1: warning: inlining failed in call to ‘iw_get_ext’: call is unlikely and code size would grow [-Winline]
+  522 | iw_get_ext(int   skfd,  /* Socket to the kernel */
+      | ^~~~~~~~~~
+iwlist.c:1864:7: note: called from here
+ 1864 |    if(iw_get_ext(skfd, ifname, SIOCGIWENCODEEXT, &wrq) < 0)
+      |       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from iwlist.c:14:
+iwlib.h:522:1: warning: inlining failed in call to ‘iw_get_ext’: call is unlikely and code size would grow [-Winline]
+  522 | iw_get_ext(int   skfd,  /* Socket to the kernel */
+      | ^~~~~~~~~~
+iwlist.c:1911:10: note: called from here
+ 1911 |       if(iw_get_ext(skfd, ifname, SIOCGIWENCODEEXT, &wrq) >= 0)
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from iwlist.c:14:
+iwlist.c: In function ‘print_scanning_info’:
+iwlib.h:506:1: warning: inlining failed in call to ‘iw_set_ext’: call is unlikely and code size would grow [-Winline]
+  506 | iw_set_ext(int   skfd,  /* Socket to the kernel */
+      | ^~~~~~~~~~
+iwlist.c:733:10: note: called from here
+  733 |       if(iw_set_ext(skfd, ifname, SIOCSIWSCAN, &wrq) < 0)
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from iwlist.c:14:
+iwlib.h:522:1: warning: inlining failed in call to ‘iw_get_ext’: call is unlikely and code size would grow [-Winline]
+  522 | iw_get_ext(int   skfd,  /* Socket to the kernel */
+      | ^~~~~~~~~~
+iwlist.c:799:7: note: called from here
+  799 |    if(iw_get_ext(skfd, ifname, SIOCGIWSCAN, &wrq) < 0)
+      |       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+iwlist.c:410:1: warning: inlining failed in call to ‘iw_print_gen_ie’: --param max-inline-insns-single limit reached [-Winline]
+  410 | iw_print_gen_ie(unsigned char * buffer,
+      | ^~~~~~~~~~~~~~~
+iwlist.c:591:7: note: called from here
+  591 |       iw_print_gen_ie(event->u.data.pointer, event->u.data.length);
+      |       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from iwlist.c:14:
+iwlist.c: In function ‘get_retry_value.constprop’:
+iwlib.h:522:1: warning: inlining failed in call to ‘iw_get_ext’: call is unlikely and code size would grow [-Winline]
+  522 | iw_get_ext(int   skfd,  /* Socket to the kernel */
+      | ^~~~~~~~~~
+iwlist.c:1425:6: note: called from here
+ 1425 |   if(iw_get_ext(skfd, ifname, SIOCGIWRETRY, pwrq) >= 0)
+      |      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from iwlist.c:14:
+iwlist.c: In function ‘get_pm_value.constprop’:
+iwlib.h:522:1: warning: inlining failed in call to ‘iw_get_ext’: call is unlikely and code size would grow [-Winline]
+  522 | iw_get_ext(int   skfd,  /* Socket to the kernel */
+      | ^~~~~~~~~~
+iwlist.c:1112:6: note: called from here
+ 1112 |   if(iw_get_ext(skfd, ifname, SIOCGIWPOWER, pwrq) >= 0)
+      |      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from iwlist.c:14:
+iwlist.c: In function ‘print_auth_info’:
+iwlib.h:522:1: warning: inlining failed in call to ‘iw_get_ext’: call is unlikely and code size would grow [-Winline]
+  522 | iw_get_ext(int   skfd,  /* Socket to the kernel */
+      | ^~~~~~~~~~
+iwlist.c:1791:11: note: called from here
+ 1791 |        if(iw_get_ext(skfd, ifname, SIOCGIWAUTH, &wrq) >= 0)
+      |           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from iwlist.c:14:
+iwlist.c: In function ‘print_retry_info’:
+iwlib.h:522:1: warning: inlining failed in call to ‘iw_get_ext’: call is unlikely and code size would grow [-Winline]
+  522 | iw_get_ext(int   skfd,  /* Socket to the kernel */
+      | ^~~~~~~~~~
+iwlist.c:1512:10: note: called from here
+ 1512 |       if(iw_get_ext(skfd, ifname, SIOCGIWRETRY, &wrq) >= 0)
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from iwlist.c:14:
+iwlib.h:522:1: warning: inlining failed in call to ‘iw_get_ext’: call is unlikely and code size would grow [-Winline]
+  522 | iw_get_ext(int   skfd,  /* Socket to the kernel */
+      | ^~~~~~~~~~
+iwlist.c:1512:10: note: called from here
+ 1512 |       if(iw_get_ext(skfd, ifname, SIOCGIWRETRY, &wrq) >= 0)
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from iwlist.c:14:
+iwlist.c: In function ‘print_pm_info’:
+iwlib.h:522:1: warning: inlining failed in call to ‘iw_get_ext’: call is unlikely and code size would grow [-Winline]
+  522 | iw_get_ext(int   skfd,  /* Socket to the kernel */
+      | ^~~~~~~~~~
+iwlist.c:1226:10: note: called from here
+ 1226 |       if(iw_get_ext(skfd, ifname, SIOCGIWPOWER, &wrq) >= 0)
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from iwlist.c:14:
+iwlib.h:522:1: warning: inlining failed in call to ‘iw_get_ext’: call is unlikely and code size would grow [-Winline]
+  522 | iw_get_ext(int   skfd,  /* Socket to the kernel */
+      | ^~~~~~~~~~
+iwlist.c:1226:10: note: called from here
+ 1226 |       if(iw_get_ext(skfd, ifname, SIOCGIWPOWER, &wrq) >= 0)
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+gcc   -Os -W -Wall -Wstrict-prototypes -Wmissing-prototypes -Wshadow -Wpointer-arith -Wcast-qual -Winline -I. -MMD     -o iwlist iwlist.o libiw.so.29 -lm
+gcc -Os -W -Wall -Wstrict-prototypes -Wmissing-prototypes -Wshadow -Wpointer-arith -Wcast-qual -Winline -I. -MMD     -c iwpriv.c
+gcc   -Os -W -Wall -Wstrict-prototypes -Wmissing-prototypes -Wshadow -Wpointer-arith -Wcast-qual -Winline -I. -MMD     -o iwpriv iwpriv.o libiw.so.29 -lm
+gcc -Os -W -Wall -Wstrict-prototypes -Wmissing-prototypes -Wshadow -Wpointer-arith -Wcast-qual -Winline -I. -MMD     -c iwspy.c
+In file included from iwspy.c:13:
+iwspy.c: In function ‘get_spy_threshold.isra.0’:
+iwlib.h:506:1: warning: inlining failed in call to ‘iw_set_ext.constprop’: call is unlikely and code size would grow [-Winline]
+  506 | iw_set_ext(int   skfd,  /* Socket to the kernel */
+      | ^~~~~~~~~~
+iwspy.c:125:6: note: called from here
+  125 |   if(iw_set_ext(skfd, ifname, SIOCGIWTHRSPY, &wrq) < 0)
+      |      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from iwspy.c:13:
+iwspy.c: In function ‘set_spy_info’:
+iwlib.h:506:1: warning: inlining failed in call to ‘iw_set_ext.constprop’: call is unlikely and code size would grow [-Winline]
+  506 | iw_set_ext(int   skfd,  /* Socket to the kernel */
+      | ^~~~~~~~~~
+iwspy.c:209:7: note: called from here
+  209 |    if(iw_get_ext(skfd, ifname, SIOCGIWSPY, &wrq) < 0)
+      |       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from iwspy.c:13:
+iwlib.h:506:1: warning: inlining failed in call to ‘iw_set_ext.constprop’: call is unlikely and code size would grow [-Winline]
+  506 | iw_set_ext(int   skfd,  /* Socket to the kernel */
+      | ^~~~~~~~~~
+iwspy.c:250:6: note: called from here
+  250 |   if(iw_set_ext(skfd, ifname, SIOCSIWSPY, &wrq) < 0)
+      |      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from iwspy.c:13:
+iwspy.c: In function ‘print_spy_info’:
+iwlib.h:506:1: warning: inlining failed in call to ‘iw_set_ext.constprop’: call is unlikely and code size would grow [-Winline]
+  506 | iw_set_ext(int   skfd,  /* Socket to the kernel */
+      | ^~~~~~~~~~
+iwspy.c:45:6: note: called from here
+   45 |   if(iw_get_ext(skfd, ifname, SIOCGIWSPY, &wrq) < 0)
+      |      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from iwspy.c:13:
+iwspy.c: In function ‘main’:
+iwlib.h:506:1: warning: inlining failed in call to ‘iw_set_ext.constprop’: call is unlikely and code size would grow [-Winline]
+  506 | iw_set_ext(int   skfd,  /* Socket to the kernel */
+      | ^~~~~~~~~~
+iwspy.c:314:6: note: called from here
+  314 |   if(iw_set_ext(skfd, ifname, SIOCSIWTHRSPY, &wrq) < 0)
+      |      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+gcc   -Os -W -Wall -Wstrict-prototypes -Wmissing-prototypes -Wshadow -Wpointer-arith -Wcast-qual -Winline -I. -MMD     -o iwspy iwspy.o libiw.so.29 -lm
+gcc -Os -W -Wall -Wstrict-prototypes -Wmissing-prototypes -Wshadow -Wpointer-arith -Wcast-qual -Winline -I. -MMD     -c iwgetid.c
+In file included from iwgetid.c:12:
+iwgetid.c: In function ‘print_channel’:
+iwlib.h:522:1: warning: inlining failed in call to ‘iw_get_ext’: call is unlikely and code size would grow [-Winline]
+  522 | iw_get_ext(int   skfd,  /* Socket to the kernel */
+      | ^~~~~~~~~~
+iwgetid.c:248:6: note: called from here
+  248 |   if(iw_get_ext(skfd, ifname, SIOCGIWFREQ, &wrq) < 0)
+      |      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from iwgetid.c:12:
+iwgetid.c: In function ‘print_one_device’:
+iwlib.h:522:1: warning: inlining failed in call to ‘iw_get_ext’: call is unlikely and code size would grow [-Winline]
+  522 | iw_get_ext(int   skfd,  /* Socket to the kernel */
+      | ^~~~~~~~~~
+iwgetid.c:173:6: note: called from here
+  173 |   if(iw_get_ext(skfd, ifname, SIOCGIWAP, &wrq) < 0)
+      |      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from iwgetid.c:12:
+iwlib.h:522:1: warning: inlining failed in call to ‘iw_get_ext’: call is unlikely and code size would grow [-Winline]
+  522 | iw_get_ext(int   skfd,  /* Socket to the kernel */
+      | ^~~~~~~~~~
+iwgetid.c:210:6: note: called from here
+  210 |   if(iw_get_ext(skfd, ifname, SIOCGIWFREQ, &wrq) < 0)
+      |      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from iwgetid.c:12:
+iwlib.h:522:1: warning: inlining failed in call to ‘iw_get_ext’: call is unlikely and code size would grow [-Winline]
+  522 | iw_get_ext(int   skfd,  /* Socket to the kernel */
+      | ^~~~~~~~~~
+iwgetid.c:294:6: note: called from here
+  294 |   if(iw_get_ext(skfd, ifname, SIOCGIWMODE, &wrq) < 0)
+      |      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from iwgetid.c:12:
+iwlib.h:522:1: warning: inlining failed in call to ‘iw_get_ext’: call is unlikely and code size would grow [-Winline]
+  522 | iw_get_ext(int   skfd,  /* Socket to the kernel */
+      | ^~~~~~~~~~
+iwgetid.c:336:6: note: called from here
+  336 |   if(iw_get_ext(skfd, ifname, SIOCGIWNAME, &wrq) < 0)
+      |      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from iwgetid.c:12:
+iwlib.h:522:1: warning: inlining failed in call to ‘iw_get_ext’: call is unlikely and code size would grow [-Winline]
+  522 | iw_get_ext(int   skfd,  /* Socket to the kernel */
+      | ^~~~~~~~~~
+iwgetid.c:99:6: note: called from here
+   99 |   if(iw_get_ext(skfd, ifname, SIOCGIWESSID, &wrq) < 0)
+      |      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from iwgetid.c:12:
+iwlib.h:522:1: warning: inlining failed in call to ‘iw_get_ext’: call is unlikely and code size would grow [-Winline]
+  522 | iw_get_ext(int   skfd,  /* Socket to the kernel */
+      | ^~~~~~~~~~
+iwgetid.c:138:6: note: called from here
+  138 |   if(iw_get_ext(skfd, ifname, SIOCGIWNWID, &wrq) < 0)
+      |      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+gcc   -Os -W -Wall -Wstrict-prototypes -Wmissing-prototypes -Wshadow -Wpointer-arith -Wcast-qual -Winline -I. -MMD     -o iwgetid iwgetid.o libiw.so.29 -lm
+gcc -Os -W -Wall -Wstrict-prototypes -Wmissing-prototypes -Wshadow -Wpointer-arith -Wcast-qual -Winline -I. -MMD     -c iwevent.c
+iwevent.c: In function ‘rtnl_open’:
+iwevent.c:92:23: warning: argument to ‘sizeof’ in ‘memset’ call is the same expression as the destination; did you mean to dereference it? [-Wsizeof-pointer-memaccess]
+   92 |  memset(rth, 0, sizeof(rth));
+      |                       ^
+iwevent.c: In function ‘main’:
+iwevent.c:615:1: warning: inlining failed in call to ‘handle_netlink_events.isra.0’: --param large-stack-frame-growth limit reached [-Winline]
+  615 | handle_netlink_events(struct rtnl_handle * rth)
+      | ^~~~~~~~~~~~~~~~~~~~~
+iwevent.c:723:2: note: called from here
+  723 |  handle_netlink_events(rth);
+      |  ^~~~~~~~~~~~~~~~~~~~~~~~~~
+gcc   -Os -W -Wall -Wstrict-prototypes -Wmissing-prototypes -Wshadow -Wpointer-arith -Wcast-qual -Winline -I. -MMD     -o iwevent iwevent.o libiw.so.29 -lm
+gcc -Os -W -Wall -Wstrict-prototypes -Wmissing-prototypes -Wshadow -Wpointer-arith -Wcast-qual -Winline -I. -MMD     -c ifrename.c
+ifrename.c: In function ‘mapping_getsysfs’:
+ifrename.c:1786:9: warning: ignoring return value of ‘fchdir’, declared with attribute warn_unused_result [-Wunused-result]
+ 1786 |         fchdir(cwd_fd);
+      |         ^~~~~~~~~~~~~~
+ifrename.c: In function ‘main’:
+ifrename.c:2635:4: warning: this statement may fall through [-Wimplicit-fallthrough=]
+ 2635 |    usage();
+      |    ^~~~~~~
+ifrename.c:2636:2: note: here
+ 2636 |  case 'c':
+      |  ^~~~
+gcc   -Os -W -Wall -Wstrict-prototypes -Wmissing-prototypes -Wshadow -Wpointer-arith -Wcast-qual -Winline -I. -MMD     -o ifrename ifrename.o libiw.so.29 -lm
+
+real	0m3.594s
+user	0m3.111s
+sys	0m0.261s
+<picasso-devel-pc>picasso@:~/GitHub/OpenSource/wireless_tools.29(main)% 

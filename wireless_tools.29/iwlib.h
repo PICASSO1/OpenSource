@@ -27,9 +27,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-#include <netdb.h>				// gethostbyname, getnetbyname
+#include <netdb.h>		// gethostbyname, getnetbyname
 #include <net/ethernet.h>	// struct ether_addr
-#include <sys/time.h>			// struct timeval
+#include <sys/time.h>		// struct timeval
 #include <unistd.h>
 
 /* This is our header selection. Try to hide the mess and the misery :-(
@@ -55,7 +55,7 @@
 
 // Glibc systems headers are supposedly less problematic than kernel ones
 #include <sys/socket.h>		// for "struct sockaddr" et al
-#include <net/if.h>				// for IFNAMSIZ and co...
+#include <net/if.h>		// for IFNAMSIZ and co...
 
 // Private copy of Wireless extensions (in this directoty)
 #include "wireless.h"
@@ -86,9 +86,9 @@
 #ifdef IW_GCC_HAS_BROKEN_INLINE
 #ifdef inline
 #undef inline
-#endif	/* inline */
-#define inline		inline		__attribute__((always_inline))
-#endif		// IW_GCC_HAS_BROKEN_INLINE
+#endif	// inline
+#define inline inline __attribute__((always_inline))
+#endif	// IW_GCC_HAS_BROKEN_INLINE
 
 #ifdef __cplusplus
 extern "C" {
@@ -104,20 +104,20 @@ extern "C" {
 // Recommended Wireless Extension version
 #define WE_VERSION			21
 // Maximum forward compatibility built in this version of WT
-#define WE_MAX_VERSION	22
+#define WE_MAX_VERSION			22
 // Version of Wireless Tools
 #define WT_VERSION			29
 
 // Paths
 #define PROC_NET_WIRELESS	"/proc/net/wireless"
-#define PROC_NET_DEV			"/proc/net/dev"
+#define PROC_NET_DEV		"/proc/net/dev"
 
 // Some usefull constants
 #define KILO	1E3
 #define MEGA	1E6
 #define GIGA	1E9
 // For doing log10/exp10 without libm
-#define LOG10_MAGIC	1.25892541179
+#define LOG10_MAGIC		1.25892541179
 
 // Backward compatibility for network headers
 #ifndef ARPHRD_IEEE80211
@@ -137,15 +137,15 @@ extern "C" {
 #define IW_EV_POINT_PK_LEN	(IW_EV_LCP_PK_LEN + 4)
 
 struct iw_pk_event {
-	__u16	len;						// Real lenght of this stuff
-	__u16	cmd;					// Wireless IOCTL
-	union iwreq_data	u;		// IOCTL fixed payload
+	__u16            len;	// Real lenght of this stuff
+	__u16            cmd;	// Wireless IOCTL
+	union iwreq_data u;	// IOCTL fixed payload
 } __attribute__ ((packed));
 
 struct	iw_pk_point {
-	void	__user *pointer;	// Pointer to the data  (in user space)
-	__u16	length;				// number of fields or size in bytes
-	__u16	flags;					// Optional params
+	void  __user *pointer;	// Pointer to the data  (in user space)
+	__u16 length;		// number of fields or size in bytes
+	__u16 flags;		// Optional params
 } __attribute__ ((packed));
 
 #define IW_EV_LCP_PK2_LEN	(sizeof(struct iw_pk_event) - sizeof(union iwreq_data))
@@ -169,57 +169,57 @@ typedef struct sockaddr		sockaddr;
  * the things *truly* needed to configure a card.
  * Don't add other junk, I'll remove it... */
 typedef struct wireless_config {
-	char					name[IFNAMSIZ + 1];						// Wireless/protocol name
-	int						has_nwid;
-	iwparam				nwid;													// Network ID
-	int						has_freq;
-	double				freq;													// Frequency/channel
-	int						freq_flags;
-	int						has_key;
-	unsigned char	key[IW_ENCODING_TOKEN_MAX];	// Encoding key used
-	int						key_size;												// Number of bytes
-	int						key_flags;											// Various flags
-	int						has_essid;
-	int						essid_on;
-	char					essid[IW_ESSID_MAX_SIZE + 1];		// ESSID (extended network)
-	int						has_mode;
-	int						mode;													// Operation mode
+	char          name[IFNAMSIZ + 1];              // Wireless/protocol name
+	int           has_nwid;
+	iwparam       nwid;                            // Network ID
+	int           has_freq;
+	double        freq;                            // Frequency/channel
+	int           freq_flags;
+	int           has_key;
+	unsigned char key[IW_ENCODING_TOKEN_MAX];      // Encoding key used
+	int           key_size;                        // Number of bytes
+	int           key_flags;                       // Various flags
+	int           has_essid;
+	int           essid_on;
+	char          essid[IW_ESSID_MAX_SIZE + 1];    // ESSID (extended network)
+	int           has_mode;
+	int           mode;                            // Operation mode
 } wireless_config;
 
 /* Structure for storing all wireless information for each device
  * This is pretty exhaustive... */
 typedef struct wireless_info {
-	struct wireless_config	b;										// Basic information
-	int			has_sens;
-	iwparam	sens;														// sensitivity
-	int			has_nickname;
-	char		nickname[IW_ESSID_MAX_SIZE + 1];	// NickName
-	int			has_ap_addr;
-	sockaddr	ap_addr;													// Access point address
-	int			has_bitrate;
-	iwparam	bitrate;													// Bit rate in bps
-	int			has_rts;
-	iwparam	rts;															// RTS threshold in bytes
-	int			has_frag;
-	iwparam	frag;														// Fragmentation threshold in bytes
-	int			has_power;
-	iwparam	power;														// Power management parameters
-	int			has_txpower;
-	iwparam	txpower;													// Transmit Power in dBm
-	int			has_retry;
-	iwparam	retry;														// Retry limit or lifetime
+	struct wireless_config	b;                                  // Basic information
+	int                     has_sens;
+	iwparam	                sens;                               // sensitivity
+	int                     has_nickname;
+	char                    nickname[IW_ESSID_MAX_SIZE + 1];    // NickName
+	int                     has_ap_addr;
+	sockaddr                ap_addr;                            // Access point address
+	int                     has_bitrate;
+	iwparam	                bitrate;                            // Bit rate in bps
+	int                     has_rts;
+	iwparam                 rts;                                // RTS threshold in bytes
+	int                     has_frag;
+	iwparam                 frag;                               // Fragmentation threshold in bytes
+	int                     has_power;
+	iwparam                 power;                              // Power management parameters
+	int                     has_txpower;
+	iwparam                 txpower;                            // Transmit Power in dBm
+	int                     has_retry;
+	iwparam                 retry;                              // Retry limit or lifetime
 	// Stats
-	iwstats	stats;
-	int			has_stats;
-	iwrange	range;
-	int			has_range;
+	iwstats                 stats;
+	int                     has_stats;
+	iwrange                 range;
+	int                     has_range;
 	// Auth params for WPA/802.1x/802.11i
-	int			auth_key_mgmt;
-	int			has_auth_key_mgmt;
-	int			auth_cipher_pairwise;
-	int			has_auth_cipher_pairwise;
-	int			auth_cipher_group;
-	int			has_auth_cipher_group;
+	int                     auth_key_mgmt;
+	int                     has_auth_key_mgmt;
+	int                     auth_cipher_pairwise;
+	int                     has_auth_cipher_pairwise;
+	int                     auth_cipher_group;
+	int                     has_auth_cipher_group;
 } wireless_info;
 
 /* Structure for storing an entry of a wireless scan.
@@ -227,40 +227,40 @@ typedef struct wireless_info {
  * structure of scan results make it impossible to capture all
  * information in such a static structure. */
 typedef struct wireless_scan {
-	/* Linked list */
-	struct wireless_scan		*next;
-	/* Cell identifiaction */
-	int									has_ap_addr;
-	sockaddr							ap_addr;		/* Access point address */
-	/* Other information */
-	struct wireless_config	b;	/* Basic information */
-	iwstats							stats;			/* Signal strength */
-	int									has_stats;
-	iwparam							maxbitrate;		/* Max bit rate in bps */
-	int									has_maxbitrate;
+	// Linked list
+	struct wireless_scan   *next;
+	// Cell identifiaction
+	int                    has_ap_addr;
+	sockaddr               ap_addr;           // Access point address
+	// Other information
+	struct wireless_config b;                 // Basic information
+	iwstats                stats;             // Signal strength
+	int                    has_stats;
+	iwparam                maxbitrate;        // Max bit rate in bps
+	int                    has_maxbitrate;
 } wireless_scan;
 
  // Context used for non-blocking scan.
 typedef struct wireless_scan_head {
-	wireless_scan	*result;	// Result of the scan
-	int					retry;		// Retry level
+	wireless_scan *result;    // Result of the scan
+	int           retry;      // Retry level
 } wireless_scan_head;
 
 // Structure used for parsing event streams, such as Wireless Events and scan results
 typedef struct stream_descr {
-	char	*end;		// End of the stream
-	char	*current;	// Current event in stream of events
-	char	*value;	// Current value in event
+	char *end;        // End of the stream
+	char *current;    // Current event in stream of events
+	char *value;      // Current value in event
 } stream_descr;
 
 // Prototype for handling display of each single interface on the system - see iw_enum_devices()
-typedef int (*iw_enum_handler)(int	skfd, char *ifname, char *args[], int count);
+typedef int (*iw_enum_handler)(int skfd, char *ifname, char *args[], int count);
 
 // Describe a modulation
 typedef struct iw_modul_descr {
-	unsigned int	mask;			// Modulation bitmask
-	char				cmd[8];		// Short name
-	char				*verbose;	// Verbose description
+	unsigned int mask;        // Modulation bitmask
+	char         cmd[8];      // Short name
+	char         *verbose;    // Verbose description
 } iw_modul_descr;
 
 /**************************** PROTOTYPES ****************************/
@@ -305,9 +305,9 @@ int iw_channel_to_freq(int channel, double *pfreq, const struct iw_range *range)
 void iw_print_bitrate(char *buffer, int	buflen, int bitrate);
 
 /* ---------------------- POWER SUBROUTINES ----------------------- */
-int iw_dbm2mwatt(int	in);
+int iw_dbm2mwatt(int in);
 
-int iw_mwatt2dbm(int	in);
+int iw_mwatt2dbm(int in);
 
 void iw_print_txpower(char *buffer, int buflen, struct iw_param *txpower);
 
@@ -319,7 +319,7 @@ void iw_print_stats(char *buffer, int buflen, const iwqual *qual, const iwrange 
 /* --------------------- ENCODING SUBROUTINES --------------------- */
 void iw_print_key(char *buffer, int buflen, const unsigned char *key, int key_size, int key_flags);
 
-int iw_in_key(const char *input, unsigned char *	key);
+int iw_in_key(const char *input, unsigned char *key);
 
 int iw_in_key_full(int skfd, const char *ifname, const char *input, unsigned char *key, __u16 *flags);
 
@@ -376,13 +376,13 @@ int iw_scan(int skfd, char *ifname, int we_version, wireless_scan_head *context)
 /**************************** VARIABLES ****************************/
 
 // Modes as human readable strings
-extern const char *const	iw_operation_mode[];
-#define IW_NUM_OPER_MODE	7
-#define IW_NUM_OPER_MODE_EXT	8
+extern const char *const           iw_operation_mode[];
+#define IW_NUM_OPER_MODE           7
+#define IW_NUM_OPER_MODE_EXT       8
 
 // Modulations as human readable strings
-extern const struct iw_modul_descr	iw_modul_list[];
-#define IW_SIZE_MODUL_LIST	16
+extern const struct iw_modul_descr iw_modul_list[];
+#define IW_SIZE_MODUL_LIST         16
 
 /************************* INLINE FUNTIONS *************************/
 
@@ -396,10 +396,10 @@ extern const struct iw_modul_descr	iw_modul_list[];
 // Wrapper to push some Wireless Parameter in the driver
 static inline int 
 iw_set_ext(skfd, ifname, request, pwrq)
-int					skfd;		// Socket to the kernel
-const char		*ifname;	// Device name
-int					request;	// WE ID
-struct iwreq	*pwrq;		// Fixed part of the request
+int skfd;              // Socket to the kernel
+const char *ifname;    // Device name
+int request;           // WE ID
+struct iwreq *pwrq;    // Fixed part of the request
 {
 	// Set device name
 	strncpy(pwrq->ifr_name, ifname, IFNAMSIZ);
@@ -410,10 +410,10 @@ struct iwreq	*pwrq;		// Fixed part of the request
 // Wrapper to extract some Wireless Parameter out of the driver
 static inline int 
 iw_get_ext(skfd, ifname, request, pwrq)
-int					skfd;		// Socket to the kernel
-const char		*ifname;	// Device name
-int					request;	// WE ID
-struct iwreq	*pwrq;		// Fixed part of the request
+int skfd;              // Socket to the kernel
+const char *ifname;    // Device name
+int request;           // WE ID
+struct iwreq *pwrq;    // Fixed part of the request
 {
 	// Set device name
 	strncpy(pwrq->ifr_name, ifname, IFNAMSIZ);

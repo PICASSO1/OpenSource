@@ -76,7 +76,7 @@
 #include <linux/types.h>		// for "caddr_t" et al
 #include <linux/socket.h>		// for "struct sockaddr" et al
 #include <linux/if.h>			// for IFNAMSIZ and co...
-#endif	/ __KERNEL__
+#endif	// __KERNEL__
 
 /***************************** VERSION *****************************/
 /*

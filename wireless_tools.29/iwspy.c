@@ -93,10 +93,10 @@ static int print_spy_info(int skfd, char *ifname, char *args[], int count)
  */
 static int 
 get_spy_threshold(skfd, ifname, args, count)
-int skfd;				// The socket
+int skfd;		// The socket
 char *ifname;		// Dev name
 char *args[];		// Command line args
-int count;				// Args count
+int count;		// Args count
 {
 	struct iwreq wrq;
 	struct iw_thrspy threshold;
@@ -152,10 +152,10 @@ int count;				// Args count
  */
 static int 
 set_spy_info(skfd, ifname, args, count)
-int skfd;				// The socket
+int skfd;		// The socket
 char *ifname;		// Dev name
 char *args[];		// Command line args
-int count;				// Args count
+int count;		// Args count
 {
 	struct iwreq wrq;
 	int i = -1, nbr = -1;	// Number of valid addresses	
@@ -235,10 +235,10 @@ int count;				// Args count
  */
 static int 
 set_spy_threshold(skfd, ifname, args, count)
-int skfd;				// The socket
+int skfd;		// The socket
 char *ifname;		// Dev name
 char *args[];		// Command line args
-int count;				// Args count
+int count;		// Args count
 {
 	struct iwreq wrq;
 	struct iw_thrspy threshold;

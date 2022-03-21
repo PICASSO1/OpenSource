@@ -21,10 +21,9 @@
 
 #include "iwlib.h"
 
-int main(int argc, char** argv)
+int main(int argc, char **argv)
 {
-
-	int devsock;
+	int devsock = -1;
 	struct ifreq ifbuffer;
 	char buf[20];
 

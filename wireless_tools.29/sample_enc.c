@@ -6,7 +6,7 @@
 /* --------------------------- INCLUDE --------------------------- */
 
 #define	MAX_KEY_SIZE	16
-#define	MAX_KEYS		8
+#define	MAX_KEYS	8
 int key_on = 0;
 int key_open = 1;
 int key_current = 0;
@@ -52,7 +52,7 @@ char *key;
 
 	// Read the flags
 	if (erq->flags & IW_ENCODE_DISABLED)
-		key_on = 0;			// disable encryption
+		key_on = 0;		// disable encryption
 
 	if (erq->flags & IW_ENCODE_RESTRICTED)
 		key_open = 0;		// disable open mode
@@ -89,8 +89,8 @@ char *key;
 	erq->flags |= index + 1;
 
 	// Copy the key to the user buffer
-  erq->length = key_size[index];
-  memcpy(key, key_table[index], key_size[index]);
+	erq->length = key_size[index];
+	memcpy(key, key_table[index], key_size[index]);
 
 	return 0;
 }

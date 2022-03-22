@@ -7,17 +7,17 @@
 
 // Backward compatibility for Wireless Extension 9
 #ifndef IW_POWER_MODIFIER
-#define IW_POWER_MODIFIER	0x000F		// Modify a parameter
-#define IW_POWER_MIN			0x0001	// Value is a minimum
-#define IW_POWER_MAX			0x0002	// Value is a maximum
+#define IW_POWER_MODIFIER	0x000F	// Modify a parameter
+#define IW_POWER_MIN		0x0001	// Value is a minimum
+#define IW_POWER_MAX		0x0002	// Value is a maximum
 #define IW_POWER_RELATIVE	0x0004	// Value is not in seconds/ms/us
 #endif		// IW_POWER_MODIFIER
 
 struct net_local {
-	int pm_on;					// Power Management enabled
-	int pm_multi;				// Receive multicasts
-	int pm_period;				// Power Management period
-	int pm_period_auto;	// Power Management auto mode
+	int pm_on;			// Power Management enabled
+	int pm_multi;			// Receive multicasts
+	int pm_period;			// Power Management period
+	int pm_period_auto;		// Power Management auto mode
 	int pm_max_period;		// Power Management max period
 	int pm_min_period;		// Power Management min period
 	int pm_timeout;			// Power Management timeout
@@ -48,7 +48,7 @@ char *extra;
 				break;
 			case IW_POWER_ON:		// None = ok
 				break;
-			default:							// Invalid
+			default:			// Invalid
 				return -EINVAL;
 		}
 		// Set period
@@ -173,10 +173,10 @@ char *extra;
 	range.min_pmp = 1000000;		// 1 units
 	range.max_pmp = 12000000;		// 12 units
 #else
-	range.min_pmp = 1;					// 1 units
-	range.max_pmp = 12;					// 12 units
+	range.min_pmp = 1;			// 1 units
+	range.max_pmp = 12;			// 12 units
 #endif
-	range.min_pmt = 1000;				// 1 ms
+	range.min_pmt = 1000;			// 1 ms
 	range.max_pmt = 1000000;		// 1 s
 	range.pmp_flags = IW_POWER_PERIOD | IW_POWER_RELATIVE | IW_POWER_MIN | IW_POWER_MAX;
 	range.pmt_flags = IW_POWER_TIMEOUT;

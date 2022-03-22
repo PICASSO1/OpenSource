@@ -96,9 +96,9 @@ struct sockaddr *mac_addr;
 		// Create a fake address
 		for (j = 0; j < 6; j++)
 			fake_addr[j] = (unsigned char)((j << 4) + i);
-			// Put in in the table
-			memcpy(&(mac_addr[i]).sa_data, fake_addr, ETH_ALEN);
-			mac_addr[i].sa_family = ARPHRD_ETHER;
+		// Put in in the table
+		memcpy(&(mac_addr[i]).sa_data, fake_addr, ETH_ALEN);
+		mac_addr[i].sa_family = ARPHRD_ETHER;
 	}
 	data->length = 16;
 
@@ -146,9 +146,9 @@ static const iw_handler sample_private_handler[] = {
 	(iw_handler)sample_ioctl_set_mac,		// 0
 	(iw_handler)sample_ioctl_get_mac,		// 1
 	(iw_handler)sample_ioctl_set_addr,		// 2
-	(iw_handler)NULL,								// 3
+	(iw_handler)NULL,				// 3
 	(iw_handler)sample_ioctl_set_addr,		// 4
-	(iw_handler)NULL,								// 5
+	(iw_handler)NULL,				// 5
 	(iw_handler)sample_ioctl_set_float,		// 6
 #endif		// WIRELESS_EXT >= 15
 };

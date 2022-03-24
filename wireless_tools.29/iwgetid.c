@@ -78,7 +78,7 @@
 static int print_essid( int skfd, const char *ifname, int format)
 {
 	struct iwreq wrq;
-	char essid[IW_ESSID_MAX_SIZE + 1];		// ESSID
+	char essid[IW_ESSID_MAX_SIZE + 1];	// ESSID
 	char pessid[IW_ESSID_MAX_SIZE + 1];	// Pcmcia format
 	unsigned int i = 0, j = 0;
 
@@ -159,8 +159,7 @@ static int print_ap(int skfd, const char *ifname, int format)
 	iw_ether_ntop((const struct ether_addr *)wrq.u.ap_addr.sa_data, buffer);
 	switch (format) {
 		case FORMAT_SCHEME:
-			/* I think ':' are not problematic, because Pcmcia scripts
-			* seem to handle them properly... */
+			// I think ':' are not problematic, because Pcmcia scripts seem to handle them properly...
 		case FORMAT_RAW:
 			printf("%s\n", buffer);
 			break;
@@ -282,7 +281,7 @@ static int print_mode(int skfd, const char *ifname, int format)
 static int print_protocol(int skfd, const char *ifname, int format)
 {
 	struct iwreq wrq;
-	char proto[IFNAMSIZ + 1];		// Protocol
+	char proto[IFNAMSIZ + 1];	// Protocol
 	char pproto[IFNAMSIZ + 1];	// Pcmcia format
 	unsigned int i = 0, j = 0;
 
@@ -328,22 +327,22 @@ static int print_one_device(int skfd, int format, int wtype, const char *ifname)
 
 	// Check wtype
 	switch (wtype) {
-		case WTYPE_AP:				// Try to print an AP
+		case WTYPE_AP:		// Try to print an AP
 			ret = print_ap(skfd, ifname, format);
 			break;
 		case WTYPE_CHANNEL:	// Try to print channel
 			ret = print_channel(skfd, ifname, format);
 			break;
-		case WTYPE_FREQ:			// Try to print frequency
+		case WTYPE_FREQ:	// Try to print frequency
 			ret = print_freq(skfd, ifname, format);
 			break;
-		case WTYPE_MODE:			// Try to print the mode
+		case WTYPE_MODE:	// Try to print the mode
 			ret = print_mode(skfd, ifname, format);
 			break;
-		case WTYPE_PROTO:		// Try to print the protocol
+		case WTYPE_PROTO:	// Try to print the protocol
 			ret = print_protocol(skfd, ifname, format);
 			break;
-		default:							// Try to print an ESSID
+		default:		// Try to print an ESSID
 			ret = print_essid(skfd, ifname, format);
 			if (ret < 0) {
 				// Try to print a nwid
@@ -421,7 +420,7 @@ static const struct option long_opts[] = {
 // The main !
 int main(int	argc, char **argv)
 {
-	int skfd = -1;		// generic raw socket desc.
+	int skfd = -1;				// generic raw socket desc.
 	int format = FORMAT_DEFAULT, wtype = WTYPE_ESSID, opt = -1, ret = -1;
 
 	// Check command line arguments

@@ -245,21 +245,21 @@ static void iw_usage(void)
 // Execute a private command on the interface
 static int 
 set_private_cmd(skfd, args, count, ifname, cmdname, priv, priv_num)
-int skfd;					// Socket
-char *args[];			// Command line args
-int count;					// Args count
-char *ifname;			// Dev name
+int skfd;		// Socket
+char *args[];		// Command line args
+int count;		// Args count
+char *ifname;		// Dev name
 char *cmdname;		// Command name
-iwprivargs *priv;		// Private ioctl description
-int priv_num;			// Number of descriptions
+iwprivargs *priv;	// Private ioctl description
+int priv_num;		// Number of descriptions
 {
 	struct iwreq	wrq;
 	u_char buffer[4096];	// Only that big in v25 and later
-	int i = 0;						// Start with first command arg
-	int k = -1;					// Index in private description table
+	int i = 0;		// Start with first command arg
+	int k = -1;		// Index in private description table
 	int temp = -1;
-	int subcmd = 0;			// sub-ioctl index
-	int offset = 0;				// Space for sub-ioctl index
+	int subcmd = 0;		// sub-ioctl index
+	int offset = 0;		// Space for sub-ioctl index
 
 	/* Check if we have a token index.
 	* Do it now so that sub-ioctl takes precedence, and so that we
@@ -274,7 +274,7 @@ int priv_num;			// Number of descriptions
 	k = -1;
 	while ((++k < priv_num) && strcmp(priv[k].name, cmdname));
 
-	// If not found... */
+	// If not found...
 	if( k == priv_num) {
 		fprintf(stderr, "Invalid command : %s\n", cmdname);
 
@@ -286,8 +286,7 @@ int priv_num;			// Number of descriptions
 		int j = -1;
 
 		// Find the matching *real* ioctl
-		while ((++j < priv_num) && ((priv[j].name[0] != '\0') || \
-			(priv[j].set_args != priv[k].set_args) || (priv[j].get_args != priv[k].get_args)));
+		while ((++j < priv_num) && ((priv[j].name[0] != '\0') || (priv[j].set_args != priv[k].set_args) || (priv[j].get_args != priv[k].get_args)));
 
 		// If not found...
 		if (j == priv_num) {
@@ -334,7 +333,7 @@ int priv_num;			// Number of descriptions
 				break;
 			case IW_PRIV_TYPE_CHAR:
 				if (i < count) {
-					// Size of the string to fetch */
+					// Size of the string to fetch
 					wrq.u.data.length = strlen(args[i]) + 1;
 					if (wrq.u.data.length > (priv[k].set_args & IW_PRIV_SIZE_MASK))
 						wrq.u.data.length = priv[k].set_args & IW_PRIV_SIZE_MASK;
@@ -456,7 +455,7 @@ int priv_num;			// Number of descriptions
 
 				printf("\n");
 				break;
-			case IW_PRIV_TYPE_INT:		// Display args
+			case IW_PRIV_TYPE_INT:	// Display args
 				for (j = 0; j < n; j++)
 					printf("%d  ", ((__s32 *) buffer)[j]);
 
@@ -467,7 +466,7 @@ int priv_num;			// Number of descriptions
 				printf("%s\n", buffer);
 				break;
 			case IW_PRIV_TYPE_FLOAT: {
-					double	 freq;
+					double freq;
 					// Display args
 					for (j = 0; j < n; j++) {
 						freq = iw_freq2float(((struct iw_freq *) buffer) + j);
@@ -508,9 +507,9 @@ int priv_num;			// Number of descriptions
 // Execute a private command on the interface
 static inline int 
 set_private(skfd, args, count, ifname)
-int skfd;				// Socket
+int skfd;		// Socket
 char *args[];		// Command line args
-int count;				// Args count
+int count;		// Args count
 char *ifname;		// Dev name
 {
 	iwprivargs *priv = (iwprivargs *)NULL;
@@ -616,17 +615,17 @@ static int print_priv_all(int skfd, char *ifname, char *args[], int count)
  */
 static int 
 set_roaming(skfd, args, count, ifname)
-int skfd;				// Socket
+int skfd;		// Socket
 char *args[];		// Command line args
-int count;				// Args count
+int count;		// Args count
 char *ifname;		// Dev name
 {
 	u_char buffer[1024];
 	struct iwreq wrq;
-	int i = 0;											// Start with first arg
+	int i = 0;	// Start with first arg
 	int k = -1, number = -1, roamcmd = -1;
 	iwprivargs *priv = (iwprivargs *)NULL;
-	char RoamState = 0x00;					// buffer to hold new roam state
+	char RoamState = 0x00;			// buffer to hold new roam state
 	char ChangeRoamState = 0x00;		// whether or not we are going to change roam states
 	// Read the private ioctls
 	number = iw_get_priv_info(skfd, ifname, &priv);
@@ -712,9 +711,9 @@ char *ifname;		// Dev name
  */
 static int 
 port_type(skfd, args, count, ifname)
-int skfd;				// Socket
+int skfd;		// Socket
 char *args[];		// Command line args
-int count;				// Args count
+int count;		// Args count
 char *ifname;		// Dev name
 {
 	struct iwreq wrq;

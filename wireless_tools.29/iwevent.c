@@ -40,10 +40,10 @@
 typedef struct wireless_iface {
 	struct wireless_iface *	next;	// Linked list
 	// Interface identification
-	int ifindex;								// Interface index == black magic
+	int ifindex;			// Interface index == black magic
 	// Interface data
 	char ifname[IFNAMSIZ + 1];	// Interface name
-	struct iw_range range;			// Wireless static data
+	struct iw_range range;		// Wireless static data
 	int has_range;
 } wireless_iface;
 
@@ -168,7 +168,7 @@ static struct wireless_iface *iw_get_interface_data(int ifindex)
 	while (curr != NULL) {
 		// Match ?
 		if (curr->ifindex == ifindex) {
-		//	printf("Cache : found %d-%s\n", curr->ifindex, curr->ifname);
+		// printf("Cache : found %d-%s\n", curr->ifindex, curr->ifname);
 
 		// Return
 		return curr;
@@ -198,7 +198,7 @@ static struct wireless_iface *iw_get_interface_data(int ifindex)
 		free(curr);
 
 		return NULL;
-    }
+	}
 	curr->has_range = (iw_get_range_info(skfd, curr->ifname, &curr->range) >= 0);
 //	printf("Cache : create %d-%s\n", curr->ifindex, curr->ifname);
 
@@ -236,7 +236,7 @@ static void iw_del_interface_data(int ifindex)
 			// Destroy
 			free(curr);
 		}
-		else		// Keep as previous
+		else	// Keep as previous
 			prev = curr;
 
 		// Next entry
@@ -296,7 +296,7 @@ int has_range;
 				if (has_range) {
 					if (freq < KILO)	// Convert channel to frequency if possible
 						channel = iw_channel_to_freq((int) freq, &freq, iw_range);
-					else						// Convert frequency to channel if possible
+					else			// Convert frequency to channel if possible
 						channel = iw_freq_to_channel(freq, iw_range);
 				}
 				iw_print_freq(buffer, sizeof(buffer), freq, channel, event->u.freq.flags);
@@ -410,20 +410,17 @@ int has_range;
 			}
 			break;
 		case IWEVASSOCREQIE:
-			printf("Association Request IEs:%s\n", \
-				iw_hexdump(buffer, sizeof(buffer), event->u.data.pointer, event->u.data.length));
+			printf("Association Request IEs:%s\n", iw_hexdump(buffer, sizeof(buffer), event->u.data.pointer, event->u.data.length));
 			break;
 		case IWEVASSOCRESPIE:
-			printf("Association Response IEs:%s\n", \
-				iw_hexdump(buffer, sizeof(buffer), event->u.data.pointer, event->u.data.length));
+			printf("Association Response IEs:%s\n", iw_hexdump(buffer, sizeof(buffer), event->u.data.pointer, event->u.data.length));
 			break;
 		case IWEVPMKIDCAND:
 			if (event->u.data.length >= sizeof(struct iw_pmkid_cand)) {
 				struct iw_pmkid_cand cand;
 
 				memcpy(&cand, event->u.data.pointer, sizeof(cand));
-				printf("PMKID candidate flags:0x%X index:%d bssid:%s\n", \
-					cand.flags, cand.index, iw_saether_ntop(&cand.bssid, buffer));
+				printf("PMKID candidate flags:0x%X index:%d bssid:%s\n", cand.flags, cand.index, iw_saether_ntop(&cand.bssid, buffer));
 			}
 			break;
 			// ----- junk -----
@@ -615,8 +612,8 @@ static inline int wait_for_event(struct rtnl_handle *rth)
 #endif
 	// Forever
 	while (1) {
-		fd_set rfds;				// File descriptors for select
-		int last_fd = -1;		// Last fd
+		fd_set rfds;		// File descriptors for select
+		int last_fd = -1;	// Last fd
 		int ret = -1;
 
 		// Guess what ? We must re-generate rfds each time

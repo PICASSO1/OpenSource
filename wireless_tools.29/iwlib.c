@@ -73,12 +73,12 @@ struct	iw15_range {
  */
 union	iw_range_raw {
 	struct iw15_range range15;	// WE 9->15
-	struct iw_range   range;			// WE 16->current
+	struct iw_range   range;	// WE 16->current
 };
 
 // Offsets in iw_range struct
-#define iwr15_off(f)	( ((char *) &(((struct iw15_range *) NULL)->f)) - (char *) NULL)
-#define iwr_off(f)	( ((char *) &(((struct iw_range *) NULL)->f)) - (char *) NULL)
+#define iwr15_off(f)	(((char *)&(((struct iw15_range *)NULL)->f)) - (char *)NULL)
+#define iwr_off(f)	(((char *)&(((struct iw_range *)NULL)->f)) - (char *)NULL)
 
 /**************************** VARIABLES ****************************/
 
@@ -116,7 +116,6 @@ int iw_ignore_version = 0;
 
 /************************ SOCKET SUBROUTINES *************************/
 
-
 /*
  * Open a socket. Depending on the protocol present, open the right socket. 
  * The socket 
@@ -151,16 +150,15 @@ int iw_sockets_open(void)
 static inline char *
 iw_get_ifname(name, nsize, buf)
 char *name;		// Where to store the name
-int  nsize;			// Size of name buffer
-char *buf;			// Current position in buffer
+int  nsize;		// Size of name buffer
+char *buf;		// Current position in buffer
 {
 	char *end = (char *)NULL;
 	// Skip leading spaces
 	while (isspace(*buf))
 		buf++;
 #ifndef IW_RESTRIC_ENUM
-	/* Get name up to the last ':'. Aliases may contain ':' in them,
-	* but the last one should be the separator */
+	// Get name up to the last ':'. Aliases may contain ':' in them, but the last one should be the separator
 	end = strrchr(buf, ':');
 #else
 	/* Get name up to ": "
@@ -213,8 +211,7 @@ void iw_enum_devices(int skfd, iw_enum_handler fn, char *args[], int count)
 		while (fgets(buff, sizeof(buff), fh)) {
 			char name[IFNAMSIZ + 1];
 			char *s = (char *)NULL;
-			/* Skip empty or almost empty lines. It seems that in some
-			* cases fgets return a line with only a newline. */
+			// Skip empty or almost empty lines. It seems that in some cases fgets return a line with only a newline.
 			if ((buff[0] == '\0') || (buff[1] == '\0'))
 				continue;
 			// Extract interface name
@@ -277,7 +274,7 @@ int iw_get_kernel_we_version(void)
 	if (fh == NULL) {
 		fprintf(stderr, "Cannot read " PROC_NET_WIRELESS "\n");
 		return -1;
-    }
+	}
 
 	// Read the first line of buffer
 	fgets(buff, sizeof(buff), fh);
@@ -317,16 +314,15 @@ print_iface_version_info(skfd, ifname, args, count)
 int skfd;
 char *ifname;
 char *args[];		// Command line args
-int count;			// Args count
+int count;		// Args count
 {
 	struct iwreq wrq;
-	char buffer[sizeof(iwrange) * 2];		// Large enough
+	char buffer[sizeof(iwrange) * 2];	// Large enough
 	struct iw_range *range = (struct iw_range *)NULL;
 	// Avoid "Unused parameter" warning
 	args = args;
 	count = count;
-	/* If no wireless name : no wireless extensions.
-	* This enable us to treat the SIOCGIWRANGE failure below properly. */
+	// If no wireless name : no wireless extensions. This enable us to treat the SIOCGIWRANGE failure below properly.
 	if (iw_get_ext(skfd, ifname, SIOCGIWNAME, &wrq) < 0)
 		return -1;
 	// Cleanup
@@ -336,15 +332,14 @@ int count;			// Args count
 	wrq.u.data.length = sizeof(buffer);
 	wrq.u.data.flags = 0;
 	if (iw_get_ext(skfd, ifname, SIOCGIWRANGE, &wrq) < 0) {
-		// Interface support WE (see above), but not IWRANGE */
+		// Interface support WE (see above), but not IWRANGE
 		fprintf(stderr, "%-8.16s  Driver has no Wireless Extension version information.\n\n", ifname);
 
 		return 0;
 	}
 	// Copy stuff at the right place, ignore extra
 	range = (struct iw_range *) buffer;
-	/* For new versions, we can check the version directly, for old versions
-	* we use magic. 300 bytes is a also magic number, don't touch... */
+	// For new versions, we can check the version directly, for old versions we use magic. 300 bytes is a also magic number, don't touch...
 	if (wrq.u.data.length >= 300) {
 		// Version is always at the same offset, so it's ok
 		printf("%-8.16s  Recommend Wireless Extension v%d or later,\n", ifname, range->we_version_source);
@@ -401,9 +396,7 @@ int iw_get_range_info(int skfd, const char *ifname, iwrange *range)
 
 	// Point to the buffer
 	range_raw = (union iw_range_raw *)buffer;
-
-	/* For new versions, we can check the version directly, for old versions
-	* we use magic. 300 bytes is a also magic number, don't touch... */
+	// For new versions, we can check the version directly, for old versions we use magic. 300 bytes is a also magic number, don't touch... 
 	if (wrq.u.data.length < 300) {
 		// That's v10 or earlier. Ouch ! Let's make a guess...
 		range_raw->range.we_version_compiled = 9;
@@ -480,7 +473,7 @@ int iw_get_priv_info(int skfd, const char *ifname, iwprivargs **ppriv)
 {
 	struct iwreq wrq;
 	iwprivargs *priv = (iwprivargs *)NULL;	// Not allocated yet
-	int maxpriv = 16;										// Minimum for compatibility WE<13
+	int maxpriv = 16;			// Minimum for compatibility WE<13
 	iwprivargs *newpriv = (iwprivargs *)NULL;
 	/* Some driver may return a very large number of ioctls. Some
 	* others a very small number. We now use a dynamic allocation
@@ -653,7 +646,7 @@ int iw_set_basic_config(int skfd, const char *ifname, wireless_config *info)
 			fprintf(stderr, "SIOCSIWENCODE(%d): %s\n", errno, strerror(errno));
 			ret = -1;
 		}
-    }
+	}
 	// Set Network ID, if available (this is for non-802.11 cards)
 	if (info->has_nwid) {
 		memcpy(&(wrq.u.nwid), &(info->nwid), sizeof(iwparam));
@@ -798,7 +791,7 @@ double iw_freq2float(const iwfreq *in)
 		res *= 10;
 
 	return res;
-#else		// WE_NOLIBM
+#else	// WE_NOLIBM
 	// Version with libm : faster
 	return ((double) in->m) * pow(10, in->e);
 #endif		// WE_NOLIBM
@@ -944,10 +937,10 @@ int iw_dbm2mwatt(int in)
 		res *= LOG10_MAGIC;
 
 	return (int)res;
-#else		// WE_NOLIBM
+#else	// WE_NOLIBM
 	// Version with libm : faster
 	return (int)(floor(pow(10.0, (((double) in) / 10.0))));
-#endif		// WE_NOLIBM
+#endif	// WE_NOLIBM
 }
 
 // Convert a value in milliWatt to a value in dBm.
@@ -969,10 +962,10 @@ int iw_mwatt2dbm(int	in)
 	}
 
 	return res;
-#else		// WE_NOLIBM
+#else	// WE_NOLIBM
 	// Version with libm : faster
 	return (int)(ceil(10.0 * log10((double)in)));
-#endif		// WE_NOLIBM
+#endif	// WE_NOLIBM
 }
 
 // Output a txpower with proper conversion
@@ -1225,15 +1218,15 @@ int key_flags;
 	if (key_flags & IW_ENCODE_NOKEY) {
 		// Nope : print on or dummy
 		if (key_size <= 0)
-			strcpy(buffer, "on");						// Size checked
+			strcpy(buffer, "on");					// Size checked
 		else {
-			strcpy(buffer, "**");						// Size checked
+			strcpy(buffer, "**");					// Size checked
 			buffer +=2;
 			for (i = 1; i < key_size; i++) {
 				if ((i & 0x1) == 0)
 					strcpy(buffer++, "-");			// Size checked
 
-				strcpy(buffer, "**");					// Size checked
+				strcpy(buffer, "**");				// Size checked
 				buffer +=2;
 			}
 		}
@@ -1244,9 +1237,9 @@ int key_flags;
 		buffer +=2;
 		for (i = 1; i < key_size; i++) {
 			if ((i & 0x1) == 0)
-				strcpy(buffer++, "-");				// Size checked
+				strcpy(buffer++, "-");		// Size checked
 
-			sprintf(buffer, "%.2X", key[i]);		// Size checked
+			sprintf(buffer, "%.2X", key[i]);	// Size checked
 			buffer +=2;
 		}
 	}
@@ -1291,7 +1284,7 @@ int iw_in_key(const char *input, unsigned char *key)
 		}
 		else {
 			const char *p = (char *)NULL;
-			int dlen;								// Digits sequence length
+			int dlen;					// Digits sequence length
 			unsigned char out[IW_ENCODING_TOKEN_MAX];
 			// Third case : as hexadecimal digits
 			p = input;
@@ -1312,7 +1305,7 @@ int iw_in_key(const char *input, unsigned char *key)
 				* get confused by 'enc' (=> '0E'+'0C') and similar */
 				count = sscanf(p, "%1X%1X", &temph, &templ);
 				if (count < 1)
-					return -1;		// Error -> non-hex char
+					return -1;			// Error -> non-hex char
 
 				// Fixup odd strings such as '123' is '01'+'23' and not '12'+'03'
 				if (dlen % 2)
@@ -1431,7 +1424,7 @@ void iw_print_pm_value(char *buffer, int buflen, int value, int flags, int we_ve
 
 	// Type
 	if (flags & IW_POWER_TIMEOUT) {
-		strcpy(buffer, " timeout:");		// Size checked
+		strcpy(buffer, " timeout:");			// Size checked
 		buffer += 9;
 	}
 	else {
@@ -1486,16 +1479,16 @@ void iw_print_pm_mode(char *buffer, int buflen, int flags)
 			strcpy(buffer, "mode:Multicast only received");		// Size checked
 			break;
 		case IW_POWER_ALL_R:
-			strcpy(buffer, "mode:All packets received");			// Size checked
+			strcpy(buffer, "mode:All packets received");		// Size checked
 			break;
 		case IW_POWER_FORCE_S:
-			strcpy(buffer, "mode:Force sending");					// Size checked
+			strcpy(buffer, "mode:Force sending");			// Size checked
 			break;
 		case IW_POWER_REPEATER:
-			strcpy(buffer, "mode:Repeat multicasts");				// Size checked
+			strcpy(buffer, "mode:Repeat multicasts");		// Size checked
 			break;
 		default:
-			strcpy(buffer, "");														// Size checked
+			strcpy(buffer, "");					// Size checked
 			break;
 	}
 
@@ -1516,7 +1509,7 @@ void iw_print_retry_value(char *buffer, int buflen, int value, int flags, int we
 	buflen -= 20;
 	// Modifiers
 	if (flags & IW_RETRY_MIN) {
-		strcpy(buffer, " min");				// Size checked
+		strcpy(buffer, " min");			// Size checked
 		buffer += 4;
 	}
 
@@ -1526,12 +1519,12 @@ void iw_print_retry_value(char *buffer, int buflen, int value, int flags, int we
     }
 
 	if (flags & IW_RETRY_SHORT) {
-		strcpy(buffer, " short");				// Size checked
+		strcpy(buffer, " short");		// Size checked
 		buffer += 6;
 	}
 	
 	if (flags & IW_RETRY_LONG) {
-		strcpy(buffer, "  long");				// Size checked
+		strcpy(buffer, "  long");		// Size checked
 		buffer += 6;
     }
 	// Type lifetime of limit
@@ -1731,7 +1724,7 @@ int iw_mac_aton(const char *orig, unsigned char *mac, int macmax)
 		// Extract one byte as two chars
 		count = sscanf(p, "%1X%1X", &temph, &templ);
 		if (count != 2)
-			break;				// Error -> non-hex chars
+			break;			// Error -> non-hex chars
 
 		// Output two chars as one byte
 		templ |= temph << 4;
@@ -1756,7 +1749,7 @@ int iw_mac_aton(const char *orig, unsigned char *mac, int macmax)
 #endif
 			errno = E2BIG;
 
-			return 0;				// Error -> overflow
+			return 0;		// Error -> overflow
 		}
 
 		// Check separator
@@ -1889,14 +1882,14 @@ int iw_in_addr(int skfd, const char *ifname, char *bufp, struct sockaddr *sap)
 
 // Size (in bytes) of various events
 static const int priv_type_size[] = {
-	0,												// IW_PRIV_TYPE_NONE
-	1,												// IW_PRIV_TYPE_BYTE
-	1,												// IW_PRIV_TYPE_CHAR
-	0,												// Not defined
-	sizeof(__u32),						// IW_PRIV_TYPE_INT
+	0,				// IW_PRIV_TYPE_NONE
+	1,				// IW_PRIV_TYPE_BYTE
+	1,				// IW_PRIV_TYPE_CHAR
+	0,				// Not defined
+	sizeof(__u32),			// IW_PRIV_TYPE_INT
 	sizeof(struct iw_freq),		// IW_PRIV_TYPE_FLOAT
-	sizeof(struct sockaddr),		// IW_PRIV_TYPE_ADDR
-	0												// Not defined
+	sizeof(struct sockaddr),	// IW_PRIV_TYPE_ADDR
+	0				// Not defined
 };
 
 // Max size in bytes of an private argument.
@@ -1929,8 +1922,7 @@ int iw_get_priv_size(int args)
 #define IW_HEADER_TYPE_QUAL	10	// struct iw_quality
 
 // Handling flags
-/* Most are not implemented. I just use them as a reminder of some
- * cool features we might need one day ;-) */
+// Most are not implemented. I just use them as a reminder of some cool features we might need one day ;-)
 #define IW_DESCR_FLAG_NONE	0x0000	// Obvious
 // Wrapper level flags
 #define IW_DESCR_FLAG_DUMP	0x0001	// Not part of the dump command
@@ -2267,7 +2259,7 @@ int len;
 // Extract the next event from the event stream.
 int iw_extract_event_stream(stream, iwe, we_version)
 struct stream_descr *stream;		// Stream of events
-struct iw_event *iwe;					// Extracted event
+struct iw_event *iwe;			// Extracted event
 int we_version;
 {
 	const struct iw_ioctl_description *descr = (struct iw_ioctl_description *)NULL;
@@ -2275,7 +2267,7 @@ int we_version;
 	unsigned int event_len = 1;	// Invalid
 	char *pointer = (char *)NULL;
 	// Don't "optimise" the following variable, it will crash
-	unsigned cmd_index;				// *MUST* be unsigned
+	unsigned cmd_index;		// *MUST* be unsigned
 	// Check for end of stream
 	if ((stream->current + IW_EV_LCP_PK_LEN) > stream->end)
 		return 0;
@@ -2319,7 +2311,7 @@ int we_version;
 	event_len -= IW_EV_LCP_PK_LEN;
 	// Set pointer on data
 	if (stream->value != NULL)
-		pointer = stream->value;												// Next value in event
+		pointer = stream->value;				// Next value in event
 	else
 		pointer = stream->current + IW_EV_LCP_PK_LEN;		// First value in event
 #ifdef DEBUG
@@ -2540,7 +2532,7 @@ int iw_process_scan(int skfd, char *ifname, int we_version, wireless_scan_head *
 {
 	struct iwreq wrq;
 	unsigned char *buffer = (unsigned char *)NULL;		// Results
-	int buflen = IW_SCAN_MAX_DATA;									// Min for compat WE<17
+	int buflen = IW_SCAN_MAX_DATA;				// Min for compat WE<17
 	unsigned char *newbuf = (unsigned char *)NULL;
 	// Don't waste too much time on interfaces (150 * 100 = 15s)
 	context->retry++;
@@ -2552,7 +2544,7 @@ int iw_process_scan(int skfd, char *ifname, int we_version, wireless_scan_head *
 	// If we have not yet initiated scanning on the interface
 	if (context->retry == 1) {
 		// Initiate Scan
-		wrq.u.data.pointer = NULL;											// Later
+		wrq.u.data.pointer = NULL;			// Later
 		wrq.u.data.flags = 0;
 		wrq.u.data.length = 0;
 		// Remember that as non-root, we will get an EPERM here

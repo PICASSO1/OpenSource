@@ -17,23 +17,23 @@
 /****************************** TYPES ******************************/
 
 // Scan state and meta-information, used to decode events...
-typedef struct iwscan_state {	// State
-	int ap_num;		// Access Point number 1->N
-	int val_index;		// Value in table 0->(N-1)
+typedef struct iwscan_state {			// State
+	int ap_num;				// Access Point number 1->N
+	int val_index;				// Value in table 0->(N-1)
 } iwscan_state;
 
 // Bit to name mapping
 typedef struct iwmask_name {
-	unsigned int mask;		// bit mask for the value
-	const char *name;		// human readable name for the value
+	unsigned int mask;			// bit mask for the value
+	const char *name;			// human readable name for the value
 } iwmask_name;
 
 // Types of authentication parameters
 typedef struct iw_auth_descr {
-	int value;													// Type of auth value
-	const char *label;									// User readable version
-	const struct iwmask_name *names;		// Names for this value
-	const int num_names;								// Number of names
+	int value;				// Type of auth value
+	const char *label;			// User readable version
+	const struct iwmask_name *names;	// Names for this value
+	const int num_names;			// Number of names
 } iw_auth_descr;
 
 /**************************** CONSTANTS ****************************/
@@ -45,7 +45,7 @@ typedef struct iw_auth_descr {
 /* ------------------------ WPA CAPA NAMES ------------------------ */
 // This is the user readable name of a bunch of WPA constants in wireless.h. Maybe this should go in iwlib.c ?
 #ifndef WE_ESSENTIAL
-#define IW_ARRAY_LEN(x) (sizeof(x) / sizeof((x)[0]))
+#define IW_ARRAY_LEN(x)		(sizeof(x) / sizeof((x)[0]))
 
 /*
 static const struct iwmask_name iw_enc_mode_name[] = {
@@ -70,20 +70,20 @@ static const struct iwmask_name iw_auth_cypher_name[] = {
 	{IW_AUTH_CIPHER_CCMP, "CCMP"},
 	{IW_AUTH_CIPHER_WEP104, "WEP-104"},
 };
-#define IW_AUTH_CYPHER_NUM		IW_ARRAY_LEN(iw_auth_cypher_name)
+#define IW_AUTH_CYPHER_NUM	IW_ARRAY_LEN(iw_auth_cypher_name)
 
 static const struct iwmask_name iw_wpa_ver_name[] = {
 	{IW_AUTH_WPA_VERSION_DISABLED, "disabled"},
 	{IW_AUTH_WPA_VERSION_WPA, "WPA"},
 	{IW_AUTH_WPA_VERSION_WPA2, "WPA2"},
 };
-#define IW_WPA_VER_NUM	IW_ARRAY_LEN(iw_wpa_ver_name)
+#define IW_WPA_VER_NUM		IW_ARRAY_LEN(iw_wpa_ver_name)
 
 static const struct iwmask_name iw_auth_key_mgmt_name[] = {
 	{IW_AUTH_KEY_MGMT_802_1X, "802.1x"},
 	{IW_AUTH_KEY_MGMT_PSK, "PSK"},
 };
-#define IW_AUTH_KEY_MGMT_NUM		IW_ARRAY_LEN(iw_auth_key_mgmt_name)
+#define IW_AUTH_KEY_MGMT_NUM	IW_ARRAY_LEN(iw_auth_key_mgmt_name)
 
 static const struct iwmask_name iw_auth_alg_name[] = {
 	{IW_AUTH_ALG_OPEN_SYSTEM, "open"},
@@ -104,11 +104,11 @@ static const struct iw_auth_descr iw_auth_settings[] = {
 	{IW_AUTH_ROAMING_CONTROL, "Roaming control", NULL, 0},
 	{IW_AUTH_PRIVACY_INVOKED, "Privacy invoked", NULL, 0},
 };
-#define IW_AUTH_SETTINGS_NUM		IW_ARRAY_LEN(iw_auth_settings)
+#define IW_AUTH_SETTINGS_NUM	IW_ARRAY_LEN(iw_auth_settings)
 
 // Values for the IW_ENCODE_ALG_* returned by SIOCSIWENCODEEXT
 static const char *iw_encode_alg_name[] = {"none", "WEP", "TKIP", "CCMP", "unknown"};
-#define IW_ENCODE_ALG_NUM		IW_ARRAY_LEN(iw_encode_alg_name)
+#define IW_ENCODE_ALG_NUM	IW_ARRAY_LEN(iw_encode_alg_name)
 
 #ifndef IW_IE_CIPHER_NONE
 // Cypher values in GENIE (pairwise and group)
@@ -130,7 +130,7 @@ static const char *iw_ie_cypher_name[] = {"none", "WEP-40", "TKIP", "WRAP", "CCM
 
 // Values for the IW_IE_KEY_MGMT_* in GENIE
 static const char *iw_ie_key_mgmt_name[] = {"none", "802.1x", "PSK"};
-#define IW_IE_KEY_MGMT_NUM		IW_ARRAY_LEN(iw_ie_key_mgmt_name)
+#define IW_IE_KEY_MGMT_NUM	IW_ARRAY_LEN(iw_ie_key_mgmt_name)
 
 #endif		// WE_ESSENTIAL
 
@@ -337,7 +337,7 @@ static inline void iw_print_gen_ie(unsigned char *buffer, int buflen)
 		// Check IE type
 		switch (buffer[offset]) {
 			case 0xDD:		// WPA1 (and other)
-			case 0x30:			// WPA2
+			case 0x30:		// WPA2
 				iw_print_ie_wpa(buffer + offset, buflen);
 				break;
 			default:
@@ -365,12 +365,12 @@ static inline void iw_print_gen_ie(unsigned char *buffer, int buflen)
 // Print one element from the scanning results
 static inline void print_scanning_token()
 struct stream_descr *stream;		// Stream of events
-struct iw_event *event;				// Extracted token
+struct iw_event *event;			// Extracted token
 struct iwscan_state *state;
-struct iw_range *iw_range;			// Range info
+struct iw_range *iw_range;		// Range info
 int has_range;
 {
-	char buffer[128];						// Temporary buffer
+	char buffer[128];		// Temporary buffer
 	// Now, let's decode the event
 	switch (event->cmd) {
 		case SIOCGIWAP:
@@ -384,8 +384,8 @@ int has_range;
 				printf("                    NWID:%X\n", event->u.nwid.value);
 			break;
 		case SIOCGIWFREQ: {
-				double freq;				// Frequency / channel
-				int channel = -1;		// Converted to channel
+				double freq;		// Frequency / channel
+				int channel = -1;	// Converted to channel
 
 				freq = iw_freq2float(&(event->u.freq));
 				// Convert to channel if possible
@@ -522,18 +522,18 @@ int has_range;
 static int print_scanning_info(skfd, ifname, args, count)
 int skfd;
 char *ifname;
-char *args[];												// Command line args
-int count;													// Args count
+char *args[];					// Command line args
+int count;					// Args count
 {
 	struct iwreq wrq;
-	struct iw_scan_req scanopt;				// Options for 'set'
-	int scanflags = 0;									// Flags for scan
-	unsigned char *buffer = NULL;			// Results
+	struct iw_scan_req scanopt;		// Options for 'set'
+	int scanflags = 0;			// Flags for scan
+	unsigned char *buffer = NULL;		// Results
 	int buflen = IW_SCAN_MAX_DATA;		// Min for compat WE<17
 	struct iw_range range;
 	int has_range = -1;
-	struct timeval tv;									// Select timeout
-	int timeout = 15000000;						// 15s
+	struct timeval tv;			// Select timeout
+	int timeout = 15000000;			// 15s
 	// Avoid "Unused parameter" warning
 	args = args;
 	count = count;
@@ -583,7 +583,7 @@ int count;													// Args count
 			scanflags |= IW_SCAN_THIS_ESSID;
 		}
 		else {		// Check for last scan result (do not trigger scan)
-			if (!strncmp(args[0], "last", 4))		// Hack
+			if (!strncmp(args[0], "last", 4))// Hack
 				scanflags |= IW_SCAN_HACK;
 			else {
 				fprintf(stderr, "Invalid scanning option [%s]\n", args[0]);
@@ -608,7 +608,7 @@ int count;													// Args count
 	// If only 'last' was specified on command line, don't trigger a scan
 	if (scanflags == IW_SCAN_HACK) // Skip waiting
 		tv.tv_usec = 0;
-	else {												// Initiate Scanning
+	else {						// Initiate Scanning
 		if (iw_set_ext(skfd, ifname, SIOCSIWSCAN, &wrq) < 0) {
 			if ((errno != EPERM) || (scanflags != 0)) {
 				fprintf(stderr, "%-8.16s  Interface doesn't support scanning : %s\n\n", ifname, strerror(errno));
@@ -626,8 +626,8 @@ int count;													// Args count
 	timeout -= tv.tv_usec;
 	// Forever
 	while (1) {
-		fd_set rfds;				// File descriptors for select
-		int last_fd = -1;		// Last fd
+		fd_set rfds;		// File descriptors for select
+		int last_fd = -1;	// Last fd
 		int ret = -1;
 		// Guess what ? We must re-generate rfds each time
 		FD_ZERO(&rfds);
@@ -692,7 +692,7 @@ realloc:
 					timeout -= tv.tv_usec;
 
 					if (timeout > 0)
-						continue;				// Try again later
+						continue;	// Try again later
 				}
 				// Bad error
 				free((void *)buffer);
@@ -960,7 +960,7 @@ static int print_pm_info(skfd, ifname, args, count)
 int skfd; 
 char *ifname;
 char *args[];			// Command line args
-int count;				// Args count
+int count;			// Args count
 {
 	struct iwreq wrq;
 	struct iw_range range;
@@ -1079,8 +1079,8 @@ int count;				// Args count
 static int print_txpower_info(skfd, ifname, args, count)
 int skfd;
 char *ifname;
-char *args[];			// Command line args
-int count;				// Args count
+char *args[];		// Command line args
+int count;		// Args count
 {
 	struct iwreq wrq;
 	struct iw_range range;
@@ -1199,7 +1199,7 @@ static int print_retry_info(skfd, ifname, args, count)
 int skfd;
 char *ifname;
 char *args[];		// Command line args
-int count;			// Args count
+int count;		// Args count
 {
 	struct iwreq wrq;
 	struct iw_range	range;
@@ -1417,7 +1417,7 @@ print_auth_info(skfd, ifname, args, count)
 int skfd;
 char *ifname;
 char *args[];		// Command line args
-int count;			// Args count
+int count;		// Args count
 {
 	struct iwreq wrq;
 	struct iw_range range;
@@ -1460,7 +1460,7 @@ static int print_wpakeys_info(skfd, ifname, args, count)
 int skfd;
 char *ifname;
 char *args[];		// Command line args
-int count;			// Args count
+int count;		// Args count
 {
 	struct iwreq wrq;
 	struct iw_range range;
@@ -1554,7 +1554,7 @@ static int print_gen_ie_info(skfd, ifname, args, count)
 int skfd;
 char *ifname;
 char *args[];		// Command line args
-int count;			// Args count
+int count;		// Args count
 {
 	struct iwreq wrq;
 	unsigned char buf[IW_GENERIC_IE_MAX];
@@ -1581,15 +1581,14 @@ int count;			// Args count
 /**************************** MODULATION ****************************/
 
 /*------------------------------------------------------------------*/
-/*
- * Print Modulation info for each device
- */
+
+// Print Modulation info for each device
 static int
 print_modul_info(skfd, ifname, args, count)
 int skfd;
 char *ifname;
 char *args[];		// Command line args
-int count;			// Args count
+int count;		// Args count
 {
 	struct iwreq wrq;
 	struct iw_range range;
@@ -1642,14 +1641,14 @@ int count;			// Args count
 
 // Map command line arguments to the proper procedure...
 typedef struct iwlist_entry {
-	const char *cmd;				// Command line shorthand
-	iw_enum_handler fn;			// Subroutine
+	const char *cmd;		// Command line shorthand
+	iw_enum_handler fn;		// Subroutine
 	int max_count;
 	const char *argsname;		// Args as human readable string
 } iwlist_cmd;
 
 static const struct iwlist_entry iwlist_cmds[] = {
-	{"scanning", print_scanning_info,	-1, "[essid NNN] [last]"},
+	{"scanning", print_scanning_info, -1, "[essid NNN] [last]"},
 	{"frequency", print_freq_info, 0, NULL},
 	{"channel", print_freq_info, 0, NULL},
 	{"bitrate", print_bitrate_info, 0, NULL},
@@ -1728,11 +1727,11 @@ static void iw_usage(int status)
 // The main !
 int main(int argc, char **argv)
 {
-	int skfd = -1;							// generic raw socket desc.
-	char *dev = (char *)NULL;		// device name
-	char *cmd = (char *)NULL;		// command
-	char **args;								// Command arguments
-	int count = -1;							// Number of arguments
+	int skfd = -1;			// generic raw socket desc.
+	char *dev = (char *)NULL;	// device name
+	char *cmd = (char *)NULL;	// command
+	char **args;			// Command arguments
+	int count = -1;			// Number of arguments
 	const iwlist_cmd *iwcmd = (iwlist_cmd *)NULL;
 
 	if (argc < 2)

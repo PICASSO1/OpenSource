@@ -26,8 +26,8 @@
 /**************************** VARIABLES ****************************/
 
 // Ugly, but deal with errors in set_info() efficiently...
-static int	errarg = -1;
-static int	errmax = -1;
+static int errarg = -1;
+static int errmax = -1;
 
 /************************* DISPLAY ROUTINES **************************/
 
@@ -170,7 +170,7 @@ static void display_info(struct wireless_info *info, char *ifname)
 	// Display frequency / channel
 	if (info->b.has_freq) {
 		double freq = info->b.freq;			// Frequency/channel
-		int channel = -1;								// Converted to channel
+		int channel = -1;				// Converted to channel
 		/* Some drivers insist of returning channel instead of frequency.
 		* This fixes them up. Note that, driver should still return
 		* frequency, because other tools depend on it. */
@@ -392,8 +392,8 @@ static int print_info(int skfd, char *ifname, char *args[], int count)
 
 typedef struct iwconfig_modifier {
 	const char *cmd;	// Command line shorthand
-	__u16 flag;				// Flags to add
-	__u16 exclude;			// Modifiers to exclude
+	__u16 flag;		// Flags to add
+	__u16 exclude;		// Modifiers to exclude
 } iwconfig_modifier;
 
 // Modifiers for Power
@@ -426,7 +426,7 @@ static const struct iwconfig_modifier	iwmod_retry[] = {
  */
 static int parse_modifiers(args, count, pout, modifier, modnum)
 char *args[];			// Command line args
-int count;					// Args count
+int count;			// Args count
 __u16 *pout;			// Flags to write
 const struct iwconfig_modifier modifier[];
 int modnum;
@@ -480,7 +480,7 @@ static int set_essid_info(skfd, ifname, args, count)
 int skfd;
 char *ifname;
 char *args[];		// Command line args
-int count;				// Args count
+int count;		// Args count
 {
 	struct iwreq wrq;
 	int i = 1;
@@ -549,7 +549,7 @@ static int set_mode_info(skfd, ifname, args, count)
 int skfd;
 char *ifname;
 char *args[];		// Command line args
-int count;				// Args count
+int count;		// Args count
 {
 	struct iwreq wrq;
 	unsigned int k = 0U;		// Must be unsigned
@@ -581,7 +581,7 @@ static int set_freq_info(skfd, ifname, args, count)
 int skfd;
 char *ifname;
 char *args[];		// Command line args
-int count;				// Args count
+int count;		// Args count
 {
 	struct iwreq wrq;
 	int i = 1;
@@ -651,7 +651,7 @@ set_bitrate_info(skfd, ifname, args, count)
 int skfd;
 char *ifname;
 char *args[];		// Command line args
-int count;				// Args count
+int count;		// Args count
 {
 	struct iwreq wrq;
 	int i = 1;
@@ -728,7 +728,7 @@ set_enc_info(skfd, ifname, args, count)
 int skfd;
 char *ifname;
 char *args[];		// Command line args
-int count;				// Args count
+int count;		// Args count
 {
 	struct iwreq wrq;
 	int i = 1;
@@ -822,7 +822,7 @@ set_power_info(skfd, ifname, args, count)
 int skfd;
 char *ifname;
 char *args[];		// Command line args
-int count;				// Args count
+int count;		// Args count
 {
 	struct iwreq wrq;
 	int i = 1;
@@ -938,7 +938,7 @@ static int set_nick_info(skfd, ifname, args, count)
 int skfd;
 char *ifname;
 char *args[];		// Command line args
-int count;				// Args count
+int count;		// Args count
 {
 	struct iwreq wrq;
 	int we_kernel_version = -1;
@@ -969,7 +969,7 @@ set_nwid_info(skfd, ifname, args, count)
 int skfd;
 char *ifname;
 char *args[];		// Command line args
-int count;				// Args count
+int count;		// Args count
 {
 	struct iwreq wrq;
 	unsigned long temp = 0U;
@@ -1012,7 +1012,7 @@ set_apaddr_info(skfd, ifname, args, count)
 int skfd;
 char *ifname;
 char *args[];		// Command line args
-int count;				// Args count
+int count;		// Args count
 {
 	struct iwreq wrq;
 	// Avoid "Unused parameter" warning
@@ -1050,7 +1050,7 @@ set_txpower_info(skfd, ifname, args, count)
 int skfd;
 char *ifname;
 char *args[];		// Command line args
-int count;				// Args count
+int count;		// Args count
 {
 	struct iwreq wrq;
 	int i = 1;
@@ -1066,7 +1066,7 @@ int count;				// Args count
 		wrq.u.txpower.disabled = 1;			// i.e. turn radio off
 	else {
 		if (!strcasecmp(args[0], "auto"))
-			wrq.u.txpower.fixed = 0;			// i.e. use power control
+			wrq.u.txpower.fixed = 0;		// i.e. use power control
 		else {
 			if (!strcasecmp(args[0], "on")) {
 				// Get old tx-power
@@ -1156,7 +1156,7 @@ set_sens_info(skfd, ifname, args, count)
 int skfd;
 char *ifname;
 char *args[];		// Command line args
-int count;				// Args count
+int count;		// Args count
 {
 	struct iwreq wrq;
 	int temp;
@@ -1183,7 +1183,7 @@ set_retry_info(skfd, ifname, args, count)
 int skfd;
 char *ifname;
 char *args[];		// Command line args
-int count;				// Args count
+int count;		// Args count
 {
 	struct iwreq wrq;
 	int i = 0;
@@ -1244,7 +1244,7 @@ set_rts_info(skfd, ifname, args, count)
 int skfd;
 char *ifname;
 char *args[];		// Command line args
-int count;				// Args count
+int count;		// Args count
 {
 	struct iwreq wrq;
 	// Avoid "Unused parameter" warning
@@ -1293,7 +1293,7 @@ set_frag_info(skfd, ifname, args, count)
 int skfd;
 char *ifname;
 char *args[];		// Command line args
-int count;			// Args count
+int count;		// Args count
 {
 	struct iwreq wrq;
 	// Avoid "Unused parameter" warning
@@ -1342,7 +1342,7 @@ set_modulation_info(skfd, ifname, args, count)
 int skfd;
 char *ifname;
 char *args[];		// Command line args
-int count;			// Args count
+int count;		// Args count
 {
 	struct iwreq wrq;
 	int i = 1;
@@ -1410,7 +1410,7 @@ set_commit_info(skfd, ifname, args, count)
 int skfd;
 char *ifname;
 char *args[];		// Command line args
-int count;			// Args count
+int count;		// Args count
 {
 	struct iwreq wrq;
 	// Avoid "Unused parameter" warning
@@ -1442,11 +1442,11 @@ int count;			// Args count
 
 // Map command line arguments to the proper procedure...
 typedef struct iwconfig_entry {
-	const char *cmd;					// Command line shorthand
-	iw_enum_handler fn;				// Subroutine
+	const char *cmd;		// Command line shorthand
+	iw_enum_handler fn;		// Subroutine
 	int min_count;
-	int request;							// WE numerical ID
-	const char *name;				// Human readable string
+	int request;			// WE numerical ID
+	const char *name;		// Human readable string
 	const char *argsname;		// Args as human readable string
 } iwconfig_cmd;
 
@@ -1518,10 +1518,10 @@ static inline const iwconfig_cmd *find_command(const char *cmd)
 // Set the wireless options requested on command line. Find the individual commands and call the appropriate subroutine
 static int 
 set_info(skfd, args, count, ifname)
-int skfd;				// The socket
+int skfd;		// The socket
 char *args[];		// Command line args
-int count;			// Args count
-char *ifname;	// Dev name
+int count;		// Args count
+char *ifname;		// Dev name
 {
 	const iwconfig_cmd *iwcmd = (iwconfig_cmd *)NULL;
 	int ret = -1;
@@ -1620,7 +1620,7 @@ static inline void iw_usage(void)
 // The main !
 int main(int argc, char **argv)
 {
-	int goterr = 0, skfd = -1;			// generic raw socket desc. 
+	int goterr = 0, skfd = -1;		// generic raw socket desc. 
 	// Create a channel to the NET kernel. 
 	if ((skfd = iw_sockets_open()) < 0) {
 		perror("socket");

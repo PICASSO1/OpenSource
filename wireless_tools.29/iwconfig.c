@@ -600,7 +600,7 @@ int count;				// Args count
 			wrq.u.freq.flags = IW_FREQ_FIXED;
 		}
 		else {			// Should be a numeric value
-			double freq = 0F;
+			double freq = 0;
 			char *unit = (char *)NULL;
 
 			freq = strtod(args[0], &unit);
@@ -670,7 +670,7 @@ int count;				// Args count
 			wrq.u.bitrate.fixed = 1;
 		}
 		else {			// Should be a numeric value
-			double brate = 0F;
+			double brate = 0;
 			char *unit = (char *)NULL;
 
 			brate = strtod(args[0], &unit);
@@ -839,7 +839,7 @@ int count;				// Args count
 			wrq.u.power.disabled = 0;
 		}
 		else {
-			double value = 0F;
+			double value = 0;
 			char *unit = (char *)NULL;
 			int gotone = 0;
 			// Parse modifiers
@@ -1187,7 +1187,7 @@ int count;				// Args count
 {
 	struct iwreq wrq;
 	int i = 0;
-	double value = 0F;
+	double value = 0;
 	char *unit = (char *)NULL;
 	// Parse modifiers
 	i = parse_modifiers(args, count, &wrq.u.retry.flags, iwmod_retry, IWMOD_RETRY_NUM);
@@ -1293,7 +1293,7 @@ set_frag_info(skfd, ifname, args, count)
 int skfd;
 char *ifname;
 char *args[];		// Command line args
-int count;				// Args count
+int count;			// Args count
 {
 	struct iwreq wrq;
 	// Avoid "Unused parameter" warning
@@ -1342,97 +1342,85 @@ set_modulation_info(skfd, ifname, args, count)
 int skfd;
 char *ifname;
 char *args[];		// Command line args
-int count;				// Args count
+int count;			// Args count
 {
-  struct iwreq		wrq;
-  int			i = 1;
+	struct iwreq wrq;
+	int i = 1;
+	// Avoid "Unused parameter" warning
+	args = args; count = count;
 
-  /* Avoid "Unused parameter" warning */
-  args = args; count = count;
+	if (!strcasecmp(args[0], "auto"))
+		wrq.u.param.fixed = 0;		// i.e. use any modulation
+	else {
+		if (!strcasecmp(args[0], "fixed")) {
+			// Get old modulation
+			if (iw_get_ext(skfd, ifname, SIOCGIWMODUL, &wrq) < 0)
+				return IWERR_GET_EXT;
 
-  if(!strcasecmp(args[0], "auto"))
-    wrq.u.param.fixed = 0;	/* i.e. use any modulation */
-  else
-    {
-      if(!strcasecmp(args[0], "fixed"))
-	{
-	  /* Get old modulation */
-	  if(iw_get_ext(skfd, ifname, SIOCGIWMODUL, &wrq) < 0)
-	    return(IWERR_GET_EXT);
-	  wrq.u.param.fixed = 1;
-	}
-      else
-	{
-	  int		k;
-
-	  /* Allow multiple modulations, combine them together */
-	  wrq.u.param.value = 0x0;
-	  i = 0;
-	  do
-	    {
-	      for(k = 0; k < IW_SIZE_MODUL_LIST; k++)
-		{
-		  if(!strcasecmp(args[i], iw_modul_list[k].cmd))
-		    {
-		      wrq.u.param.value |= iw_modul_list[k].mask;
-		      ++i;
-		      break;
-		    }
+			wrq.u.param.fixed = 1;
 		}
-	    }
-	  /* For as long as current arg matched and not out of args */
-	  while((i < count) && (k < IW_SIZE_MODUL_LIST));
+		else {
+			int k = -1;
+			// Allow multiple modulations, combine them together
+			wrq.u.param.value = 0x00;
+			i = 0;
+			do {
+				for (k = 0; k < IW_SIZE_MODUL_LIST; k++) {
+					if (!strcasecmp(args[i], iw_modul_list[k].cmd)) {
+						wrq.u.param.value |= iw_modul_list[k].mask;
+						++i;
 
-	  /* Check we got something */
-	  if(i == 0)
-	    {
-	      errarg = 0;
-	      return(IWERR_ARG_TYPE);
-	    }
+						break;
+					}
+				}
+			} while ((i < count) && (k < IW_SIZE_MODUL_LIST));
+			// For as long as current arg matched and not out of args
+	  
+			// Check we got something
+			if (i == 0) {
+				errarg = 0;
 
-	  /* Check for an additional argument */
-	  if((i < count) && (!strcasecmp(args[i], "auto")))
-	    {
-	      wrq.u.param.fixed = 0;
-	      ++i;
-	    }
-	  if((i < count) && (!strcasecmp(args[i], "fixed")))
-	    {
-	      wrq.u.param.fixed = 1;
-	      ++i;
-	    }
+				return IWERR_ARG_TYPE ;
+			}
+
+			// Check for an additional argument
+			if ((i < count) && (!strcasecmp(args[i], "auto"))) {
+				wrq.u.param.fixed = 0;
+				++i;
+			}
+
+			if ((i < count) && (!strcasecmp(args[i], "fixed"))) {
+				wrq.u.param.fixed = 1;
+				++i;
+			}
+		}
 	}
-    }
 
-  if(iw_set_ext(skfd, ifname, SIOCSIWMODUL, &wrq) < 0)
-    return(IWERR_SET_EXT);
+	if (iw_set_ext(skfd, ifname, SIOCSIWMODUL, &wrq) < 0)
+		return IWERR_SET_EXT ;
 
-  /* Var args */
-  return(i);
+	// Var args
+	return i;
 }
-#endif	/* WE_ESSENTIAL */
+#endif		// WE_ESSENTIAL
 
-/*------------------------------------------------------------------*/
-/*
- * Set commit
- */
+// Set commit
 static int
 set_commit_info(skfd, ifname, args, count)
 int skfd;
 char *ifname;
 char *args[];		// Command line args
-int count;				// Args count
+int count;			// Args count
 {
-  struct iwreq		wrq;
+	struct iwreq wrq;
+	// Avoid "Unused parameter" warning
+	args = args; count = count;
 
-  /* Avoid "Unused parameter" warning */
-  args = args; count = count;
+	if (iw_set_ext(skfd, ifname, SIOCSIWCOMMIT, &wrq) < 0)
+		return IWERR_SET_EXT;
 
-  if(iw_set_ext(skfd, ifname, SIOCSIWCOMMIT, &wrq) < 0)
-    return(IWERR_SET_EXT);
-
-  /* No args */
-  return(0);
+	// No args
+	return 0;
 }
 
 /************************** SET DISPATCHER **************************/
@@ -1452,273 +1440,219 @@ int count;				// Args count
  * you don't know which one failed...
  */
 
-/*------------------------------------------------------------------*/
-/*
- * Map command line arguments to the proper procedure...
- */
+// Map command line arguments to the proper procedure...
 typedef struct iwconfig_entry {
-  const char *		cmd;		/* Command line shorthand */
-  iw_enum_handler	fn;		/* Subroutine */
-  int			min_count;
-  int			request;	/* WE numerical ID */
-  const char *		name;		/* Human readable string */
-  const char *		argsname;	/* Args as human readable string */
+	const char *cmd;					// Command line shorthand
+	iw_enum_handler fn;				// Subroutine
+	int min_count;
+	int request;							// WE numerical ID
+	const char *name;				// Human readable string
+	const char *argsname;		// Args as human readable string
 } iwconfig_cmd;
 
 static const struct iwconfig_entry iwconfig_cmds[] = {
-  { "essid",		set_essid_info,		1,	SIOCSIWESSID,
-	"Set ESSID",			"{NNN|any|on|off}" },
-  { "mode",		set_mode_info,		1,	SIOCSIWMODE,
-	"Set Mode",			"{managed|ad-hoc|master|...}" },
-  { "freq",		set_freq_info,		1,	SIOCSIWFREQ,
-	"Set Frequency",		"N.NNN[k|M|G]" },
-  { "channel",		set_freq_info,		1,	SIOCSIWFREQ,
-	"Set Frequency",		"N" },
-  { "bit",		set_bitrate_info,	1,	SIOCSIWRATE,
-	"Set Bit Rate",			"{N[k|M|G]|auto|fixed}" },
-  { "rate",		set_bitrate_info,	1,	SIOCSIWRATE,
-	"Set Bit Rate",			"{N[k|M|G]|auto|fixed}" },
-  { "enc",		set_enc_info,		1,	SIOCSIWENCODE,
-	"Set Encode",			"{NNNN-NNNN|off}" },
-  { "key",		set_enc_info,		1,	SIOCSIWENCODE,
-	"Set Encode",			"{NNNN-NNNN|off}"  },
-  { "power",		set_power_info,		1,	SIOCSIWPOWER,
-	"Set Power Management",		"{period N|timeout N|saving N|off}" },
+	{"essid", set_essid_info, 1, SIOCSIWESSID, "Set ESSID", "{NNN | any | on | off}"},
+	{"mode", set_mode_info, 1, SIOCSIWMODE, "Set Mode", "{managed | ad-hoc | master | ... }"},
+	{"freq", set_freq_info, 1, SIOCSIWFREQ, "Set Frequency", "N.NNN[k | M | G]"},
+	{"channel", set_freq_info, 1, SIOCSIWFREQ, "Set Frequency", "N"},
+	{"bit", set_bitrate_info, 1, SIOCSIWRATE, "Set Bit Rate", "{N[k | M | G] | auto | fixed}"},
+	{"rate", set_bitrate_info, 1, SIOCSIWRATE, "Set Bit Rate", "{N[k | M | G ] | auto | fixed}"},
+	{"enc", set_enc_info, 1, SIOCSIWENCODE, "Set Encode", "{NNNN-NNNN | off}"},
+	{"key", set_enc_info,	 1, SIOCSIWENCODE, "Set Encode", "{NNNN-NNNN | off}" },
+	{"power", set_power_info, 1, SIOCSIWPOWER, "Set Power Management",		"{period N | timeout N | saving N | off}"},
 #ifndef WE_ESSENTIAL
-  { "nickname",		set_nick_info,		1,	SIOCSIWNICKN,
-	"Set Nickname",			"NNN" },
-  { "nwid",		set_nwid_info,		1,	SIOCSIWNWID,
-	"Set NWID",			"{NN|on|off}" },
-  { "ap",		set_apaddr_info,	1,	SIOCSIWAP,
-	"Set AP Address",		"{N|off|auto}" },
-  { "txpower",		set_txpower_info,	1,	SIOCSIWTXPOW,
-	"Set Tx Power",			"{NmW|NdBm|off|auto}" },
-  { "sens",		set_sens_info,		1,	SIOCSIWSENS,
-	"Set Sensitivity",		"N" },
-  { "retry",		set_retry_info,		1,	SIOCSIWRETRY,
-	"Set Retry Limit",		"{limit N|lifetime N}" },
-  { "rts",		set_rts_info,		1,	SIOCSIWRTS,
-	"Set RTS Threshold",		"{N|auto|fixed|off}" },
-  { "frag",		set_frag_info,		1,	SIOCSIWFRAG,
-	"Set Fragmentation Threshold",	"{N|auto|fixed|off}" },
-  { "modulation",	set_modulation_info,	1,	SIOCGIWMODUL,
-	"Set Modulation",		"{11g|11a|CCK|OFDMg|...}" },
-#endif	/* WE_ESSENTIAL */
-  { "commit",		set_commit_info,	0,	SIOCSIWCOMMIT,
-	"Commit changes",		"" },
-  { NULL, NULL, 0, 0, NULL, NULL },
+	{"nickname", set_nick_info, 1, SIOCSIWNICKN, "Set Nickname",	 "NNN"},
+	{"nwid", set_nwid_info, 1, SIOCSIWNWID, "Set NWID", "{NN | on | off}"},
+	{"ap", set_apaddr_info, 1, SIOCSIWAP, "Set AP Address", "{N | off | auto}"},
+	{"txpower", set_txpower_info, 1, SIOCSIWTXPOW, "Set Tx Power", "{NmW | NdBm | off | auto}"},
+	{"sens", set_sens_info, 1, SIOCSIWSENS, "Set Sensitivity", "N"},
+	{"retry", set_retry_info, 1, SIOCSIWRETRY, "Set Retry Limit", "{limit N | lifetime N}"},
+	{"rts", set_rts_info, 1, SIOCSIWRTS, "Set RTS Threshold",	 "{N | auto | fixed | off}"},
+	{"frag", set_frag_info, 1, SIOCSIWFRAG, "Set Fragmentation Threshold", "{N | auto | fixed | off}"},
+	{"modulation", set_modulation_info, 1, SIOCGIWMODUL, "Set Modulation", "{11g | 11a | CCK | OFDMg | ...}"},
+#endif		// WE_ESSENTIAL
+	{"commit", set_commit_info, 0, SIOCSIWCOMMIT, "Commit changes", ""},
+	{NULL, NULL, 0, 0, NULL, NULL},
 };
 
-/*------------------------------------------------------------------*/
-/*
- * Find the most appropriate command matching the command line
- */
-static inline const iwconfig_cmd *
-find_command(const char *	cmd)
+// Find the most appropriate command matching the command line
+static inline const iwconfig_cmd *find_command(const char *cmd)
 {
-  const iwconfig_cmd *	found = NULL;
-  int			ambig = 0;
-  unsigned int		len = strlen(cmd);
-  int			i;
+	const iwconfig_cmd *found = (iwconfig_cmd *)NULL;
+	int ambig = 0, i = -1;
+	unsigned int len = strlen(cmd);
+	// Go through all commands
+	for (i = 0; iwconfig_cmds[i].cmd != NULL; ++i) {
+		// No match -> next one
+		if (strncasecmp(iwconfig_cmds[i].cmd, cmd, len) != 0)
+			continue;
 
-  /* Go through all commands */
-  for(i = 0; iwconfig_cmds[i].cmd != NULL; ++i)
-    {
-      /* No match -> next one */
-      if(strncasecmp(iwconfig_cmds[i].cmd, cmd, len) != 0)
-	continue;
+		// Exact match -> perfect
+		if (len == strlen(iwconfig_cmds[i].cmd))
+			return &iwconfig_cmds[i];
 
-      /* Exact match -> perfect */
-      if(len == strlen(iwconfig_cmds[i].cmd))
-	return &iwconfig_cmds[i];
-
-      /* Partial match */
-      if(found == NULL)
-	/* First time */
-	found = &iwconfig_cmds[i];
-      else
-	/* Another time */
-	if (iwconfig_cmds[i].fn != found->fn)
-	  ambig = 1;
-    }
-
-  if(found == NULL)
-    {
-      fprintf(stderr, "iwconfig: unknown command \"%s\"\n", cmd);
-      return NULL;
-    }
-
-  if(ambig)
-    {
-      fprintf(stderr, "iwconfig: command \"%s\" is ambiguous\n", cmd);
-      return NULL;
-    }
-
-  return found;
-}
-
-/*------------------------------------------------------------------*/
-/*
- * Set the wireless options requested on command line
- * Find the individual commands and call the appropriate subroutine
- */
-static int
-set_info(int		skfd,		/* The socket */
-	 char *		args[],		/* Command line args */
-	 int		count,		/* Args count */
-	 char *		ifname)		/* Dev name */
-{
-  const iwconfig_cmd *	iwcmd;
-  int			ret;
-
-  /* Loop until we run out of args... */
-  while(count > 0)
-    {
-      /* find the command matching the keyword */
-      iwcmd = find_command(args[0]);
-      if(iwcmd == NULL)
-	{
-	  /* Here we have an unrecognised arg... Error already printed out. */
-	  return(-1);
+		// Partial match
+		if (found == NULL)
+			found = &iwconfig_cmds[i];		// First time
+		else {		// Another time
+			if (iwconfig_cmds[i].fn != found->fn)
+				ambig = 1;
+		}
 	}
 
-      /* One arg is consumed (the command name) */
-      args++;
-      count--;
+	if (found == (iwconfig_cmd *)NULL) {
+		fprintf(stderr, "iwconfig: unknown command \"%s\"\n", cmd);
 
-      /* Check arg numbers */
-      if(count < iwcmd->min_count)
-	ret = IWERR_ARG_NUM;
-      else
-	ret = 0;
-
-      /* Call the command */
-      if(!ret)
-	ret = (*iwcmd->fn)(skfd, ifname, args, count);
-
-      /* Deal with various errors */
-      if(ret < 0)
-	{
-	  int	request = iwcmd->request;
-	  if(ret == IWERR_GET_EXT)
-	    request++;	/* Transform the SET into GET */
-
-	  fprintf(stderr, "Error for wireless request \"%s\" (%X) :\n",
-		  iwcmd->name, request);
-	  switch(ret)
-	    {
-	    case IWERR_ARG_NUM:
-	      fprintf(stderr, "    too few arguments.\n");
-	      break;
-	    case IWERR_ARG_TYPE:
-	      if(errarg < 0)
-		errarg = 0;
-	      if(errarg >= count)
-		errarg = count - 1;
-	      fprintf(stderr, "    invalid argument \"%s\".\n", args[errarg]);
-	      break;
-	    case IWERR_ARG_SIZE:
-	      fprintf(stderr, "    argument too big (max %d)\n", errmax);
-	      break;
-	    case IWERR_ARG_CONFLICT:
-	      if(errarg < 0)
-		errarg = 0;
-	      if(errarg >= count)
-		errarg = count - 1;
-	      fprintf(stderr, "    conflicting argument \"%s\".\n", args[errarg]);
-	      break;
-	    case IWERR_SET_EXT:
-	      fprintf(stderr, "    SET failed on device %-1.16s ; %s.\n",
-		      ifname, strerror(errno));
-	      break;
-	    case IWERR_GET_EXT:
-	      fprintf(stderr, "    GET failed on device %-1.16s ; %s.\n",
-		      ifname, strerror(errno));
-	      break;
-	    }
-	  /* Stop processing, we don't know if we are in a consistent state
-	   * in reading the command line */
-	  return(ret);
-	}
-
-      /* Substract consumed args from command line */
-      args += ret;
-      count -= ret;
-
-      /* Loop back */
+		return (iwconfig_cmd *)NULL;
     }
 
-  /* Done, all done */
-  return(0);
+	if (ambig) {
+		fprintf(stderr, "iwconfig: command \"%s\" is ambiguous\n", cmd);
+
+		return (iwconfig_cmd *)NULL;
+	}
+
+	return found;
 }
 
-/*------------------------------------------------------------------*/
-/*
- * Display help
- */
-static inline void
-iw_usage(void)
+// Set the wireless options requested on command line. Find the individual commands and call the appropriate subroutine
+static int 
+set_info(skfd, args, count, ifname)
+int skfd;				// The socket
+char *args[];		// Command line args
+int count;			// Args count
+char *ifname;	// Dev name
 {
-  int i;
+	const iwconfig_cmd *iwcmd = (iwconfig_cmd *)NULL;
+	int ret = -1;
+	// Loop until we run out of args... 
+	while (count > 0) {
+		// find the command matching the keyword
+		iwcmd = find_command(args[0]);
+		if (iwcmd == (iwconfig_cmd *)NULL) {		// Here we have an unrecognised arg... Error already printed out. 
+			return -1;
+		}
+		// One arg is consumed (the command name)
+		args++;
+		count--;
+		// Check arg numbers
+		if (count < iwcmd->min_count)
+			ret = IWERR_ARG_NUM;
+		else
+			ret = 0;
 
-  fprintf(stderr,   "Usage: iwconfig [interface]\n");
-  for(i = 0; iwconfig_cmds[i].cmd != NULL; ++i)
-    fprintf(stderr, "                interface %s %s\n",
-	    iwconfig_cmds[i].cmd, iwconfig_cmds[i].argsname);
-  fprintf(stderr,   "       Check man pages for more details.\n");
+		// Call the command
+		if (!ret)
+			ret = (*iwcmd->fn)(skfd, ifname, args, count);
+
+		// Deal with various errors
+		if (ret < 0) {
+			int request = iwcmd->request;
+
+			if (ret == IWERR_GET_EXT)
+				request++;		// Transform the SET into GET
+
+			fprintf(stderr, "Error for wireless request \"%s\" (%X) :\n", iwcmd->name, request);
+			switch (ret) {
+				case IWERR_ARG_NUM:
+					fprintf(stderr, "    too few arguments.\n");
+					break;
+				case IWERR_ARG_TYPE:
+					if (errarg < 0)
+						errarg = 0;
+				
+					if (errarg >= count)
+						errarg = count - 1;
+
+					fprintf(stderr, "    invalid argument \"%s\".\n", args[errarg]);
+					break;
+				case IWERR_ARG_SIZE:
+					fprintf(stderr, "    argument too big (max %d)\n", errmax);
+					break;
+				case IWERR_ARG_CONFLICT:
+					if (errarg < 0)
+						errarg = 0;
+
+					if (errarg >= count)
+						errarg = count - 1;
+
+					fprintf(stderr, "    conflicting argument \"%s\".\n", args[errarg]);
+					break;
+				case IWERR_SET_EXT:
+					fprintf(stderr, "    SET failed on device %-1.16s ; %s.\n", ifname, strerror(errno));
+					break;
+				case IWERR_GET_EXT:
+					fprintf(stderr, "    GET failed on device %-1.16s ; %s.\n", ifname, strerror(errno));
+					break;
+				default:
+					break;
+			}
+			// Stop processing, we don't know if we are in a consistent state in reading the command line
+			return ret;
+		}
+		// Substract consumed args from command line
+		args += ret;
+		count -= ret;
+		// Loop back
+	}
+
+	// Done, all done
+	return 0;
+}
+
+// Display help
+static inline void iw_usage(void)
+{
+	int i = -1;
+
+	fprintf(stderr,   "Usage: iwconfig [interface]\n");
+	for (i = 0; iwconfig_cmds[i].cmd != NULL; ++i)
+		fprintf(stderr, "                interface %s %s\n", iwconfig_cmds[i].cmd, iwconfig_cmds[i].argsname);
+
+	fprintf(stderr,   "       Check man pages for more details.\n");
+
+	return;
 }
 
 
 /******************************* MAIN ********************************/
 
-/*------------------------------------------------------------------*/
-/*
- * The main !
- */
-int
-main(int	argc,
-     char **	argv)
+// The main !
+int main(int argc, char **argv)
 {
-  int skfd;		/* generic raw socket desc.	*/
-  int goterr = 0;
-
-  /* Create a channel to the NET kernel. */
-  if((skfd = iw_sockets_open()) < 0)
-    {
-      perror("socket");
-      exit(-1);
+	int goterr = 0, skfd = -1;			// generic raw socket desc. 
+	// Create a channel to the NET kernel. 
+	if ((skfd = iw_sockets_open()) < 0) {
+		perror("socket");
+		exit(-1);
     }
-
-  /* No argument : show the list of all device + info */
-  if(argc == 1)
-    iw_enum_devices(skfd, &print_info, NULL, 0);
-  else
-    /* Special case for help... */
-    if((!strcmp(argv[1], "-h")) || (!strcmp(argv[1], "--help")))
-      iw_usage();
-    else
-      /* Special case for version... */
-      if(!strcmp(argv[1], "-v") || !strcmp(argv[1], "--version"))
-	goterr = iw_print_version_info("iwconfig");
-      else
-	{
-	  /* '--' escape device name */
-	  if((argc > 2) && !strcmp(argv[1], "--"))
-	    {
-	      argv++;
-	      argc--;
-	    }
-
-	  /* The device name must be the first argument */
-	  if(argc == 2)
-	    print_info(skfd, argv[1], NULL, 0);
-	  else
-	    /* The other args on the line specify options to be set... */
-	    goterr = set_info(skfd, argv + 2, argc - 2, argv[1]);
+	// No argument : show the list of all device + info
+	if (argc == 1)
+		iw_enum_devices(skfd, &print_info, NULL, 0);
+	else {			// Special case for help...
+		if ((!strcmp(argv[1], "-h")) || (!strcmp(argv[1], "--help")))
+			iw_usage();
+		else {
+			// Special case for version... 
+			if (!strcmp(argv[1], "-v") || !strcmp(argv[1], "--version"))
+				goterr = iw_print_version_info("iwconfig");
+			else {
+				// '--' escape device name 
+				if ((argc > 2) && !strcmp(argv[1], "--")) {
+					argv++;
+					argc--;
+				}
+				// The device name must be the first argument
+				if (argc == 2)
+					print_info(skfd, argv[1], NULL, 0);
+				else
+					// The other args on the line specify options to be set... 
+					goterr = set_info(skfd, argv + 2, argc - 2, argv[1]);
+			}
+		}
 	}
+	// Close the socket.
+	iw_sockets_close(skfd);
 
-  /* Close the socket. */
-  iw_sockets_close(skfd);
-
-  return(goterr);
+	return goterr;
 }

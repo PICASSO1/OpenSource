@@ -45,15 +45,15 @@
 #define _GNU_SOURCE
 #endif
 
-#include <getopt.h>				// getopt_long()
+#include <getopt.h>			// getopt_long()
 #include <linux/sockios.h>		// SIOCSIFNAME
 #include <fnmatch.h>			// fnmatch()
 //#include <sys/syslog.h>
 
-#include "iwlib.h"					// Wireless Tools library
+#include "iwlib.h"			// Wireless Tools library
 
 // This would be cool, unfortunately...
-//#include <linux/ethtool.h>	// Ethtool stuff -> struct ethtool_drvinfo
+//#include <linux/ethtool.h>		// Ethtool stuff -> struct ethtool_drvinfo
 
 /************************ CONSTANTS & MACROS ************************/
 
@@ -69,25 +69,25 @@ const char DEBIAN_CONFIG_FILE[] = "/etc/network/interfaces";
 #endif
 
 // Types of selector we support. Must match selector_list
-const int SELECT_MAC = 0;					// Select by MAC address
+const int SELECT_MAC = 0;		// Select by MAC address
 const int SELECT_ETHADDR = 1;		// Select by MAC address
-const int SELECT_ARP = 2;					// Select by ARP type
-const int SELECT_LINKTYPE = 3;			// Select by ARP type
-const int SELECT_DRIVER = 4;			// Select by Driver name
-const int SELECT_BUSINFO = 5;			// Select by Bus-Info
+const int SELECT_ARP = 2;		// Select by ARP type
+const int SELECT_LINKTYPE = 3;		// Select by ARP type
+const int SELECT_DRIVER = 4;		// Select by Driver name
+const int SELECT_BUSINFO = 5;		// Select by Bus-Info
 const int SELECT_FIRMWARE = 6;		// Select by Firmware revision
 const int SELECT_BASEADDR = 7;		// Select by HW Base Address
-const int SELECT_IRQ = 8;					// Select by HW Irq line
+const int SELECT_IRQ = 8;		// Select by HW Irq line
 const int SELECT_INTERRUPT = 9;		// Select by HW Irq line
 const int SELECT_IWPROTO = 10;		// Select by Wireless Protocol
 const int SELECT_PCMCIASLOT = 11;	// Select by Pcmcia Slot
-const int SELECT_SYSFS = 12;			// Select by sysfs file
-const int SELECT_PREVNAME = 13;	// Select by previous interface name
+const int SELECT_SYSFS = 12;		// Select by sysfs file
+const int SELECT_PREVNAME = 13;		// Select by previous interface name
 #define SELECT_NUM	14
 
 #define HAS_MAC_EXACT	1
 #define HAS_MAC_FILTER	2
-#define MAX_MAC_LEN	16				// Maximum lenght of MAC address
+#define MAX_MAC_LEN	16		// Maximum lenght of MAC address
 
 const struct ether_addr zero_mac = {{0x00, 0x00, 0x00, 0x00, 0x00, 0x00}};
 
@@ -138,17 +138,17 @@ const int weird_mac_len_num = sizeof(weird_mac_len) / sizeof(weird_mac_len[0]);
 // these strings are set to whatever the driver author decides...
 struct ethtool_drvinfo {
 	__u32 cmd;
-	char  driver[32];												// driver short name, "tulip", "eepro100"
-	char  version[32];											// driver version string
-	char  fw_version[32];										// firmware version string, if applicable
+	char  driver[32];				// driver short name, "tulip", "eepro100"
+	char  version[32];				// driver version string
+	char  fw_version[32];				// firmware version string, if applicable
 	char  bus_info[ETHTOOL_BUSINFO_LEN];		// Bus info for this IF.
 	// For PCI devices, use pci_dev->slot_name.
 	char  reserved1[32];
 	char  reserved2[16];
-	__u32 n_stats;													// number of u64's from ETHTOOL_GSTATS
+	__u32 n_stats;					// number of u64's from ETHTOOL_GSTATS
 	__u32 testinfo_len;
-	__u32 eedump_len;											// Size of data from ETHTOOL_GEEPROM (bytes)
-	__u32 regdump_len;										// Size of data from ETHTOOL_GREGS (bytes)
+	__u32 eedump_len;				// Size of data from ETHTOOL_GEEPROM (bytes)
+	__u32 regdump_len;				// Size of data from ETHTOOL_GREGS (bytes)
 };
 #define ETHTOOL_GDRVINFO	0x00000003		// Get driver info.
 
@@ -161,26 +161,26 @@ typedef struct if_mapping {
 	char *sysfs_devpath;
 	int sysfs_devplen;
 	// Selectors for this interface
-	int active[SELECT_NUM];								// Selectors active
+	int active[SELECT_NUM];				// Selectors active
 	// Selector data
 	unsigned char mac[MAX_MAC_LEN];			// Exact MAC address, hex
-	int mac_len;												// Length (usually 6)
-	char mac_filter[16 * 3 + 1];						// WildCard, ascii
-	unsigned short hw_type;							// Link/ARP type
-	char driver[32];											// driver short name
+	int mac_len;					// Length (usually 6)
+	char mac_filter[16 * 3 + 1];			// WildCard, ascii
+	unsigned short hw_type;				// Link/ARP type
+	char driver[32];				// driver short name
 	char bus_info[ETHTOOL_BUSINFO_LEN];		// Bus info for this IF.
-	char fw_version[32];									// Firmware revision
-	unsigned short base_addr;						// HW Base I/O address
-	unsigned char irq;										// HW irq line
-	char iwproto[IFNAMSIZ + 1];						// Wireless/protocol name
-	int pcmcia_slot;											// Pcmcia slot
-	char *sysfs[SYSFS_MAX_FILE];					// sysfs selectors
-	char prevname[IFNAMSIZ + 1];						// previous interface name
+	char fw_version[32];				// Firmware revision
+	unsigned short base_addr;			// HW Base I/O address
+	unsigned char irq;				// HW irq line
+	char iwproto[IFNAMSIZ + 1];			// Wireless/protocol name
+	int pcmcia_slot;				// Pcmcia slot
+	char *sysfs[SYSFS_MAX_FILE];			// sysfs selectors
+	char prevname[IFNAMSIZ + 1];			// previous interface name
 } if_mapping;
 
 // Extra parsing information when adding a mapping
 typedef struct add_extra {
-	char   *modif_pos;										// Descriptor modifier
+	char   *modif_pos;				// Descriptor modifier
 	size_t modif_len;
 } parsing_extra;
 
@@ -203,9 +203,9 @@ typedef struct mapping_selector {
 
 // sysfs global data
 typedef struct sysfs_metadata {
-	char *root;											// Root of the sysfs
-	int rlen;												// Size of it
-	int filenum;											// Number of files
+	char *root;				// Root of the sysfs
+	int rlen;				// Size of it
+	int filenum;				// Number of files
 	char *filename[SYSFS_MAX_FILE];		// Name of files
 } sysfs_metadata;
 
@@ -318,10 +318,10 @@ int selector_active[SELECT_NUM];		// Selectors active
 int print_newname = 0;
 char *new_name = (char *)NULL;
 // Takeover support
-int force_takeover = 0;						// Takeover name from other interface
-int num_takeover = 0;							// Number of takeover done
+int force_takeover = 0;				// Takeover name from other interface
+int num_takeover = 0;				// Number of takeover done
 // Dry-run support
-int dry_run = 0;									// Just print new name, don't rename
+int dry_run = 0;				// Just print new name, don't rename
 // Verbose support (i.e. debugging)
 int verbose = 0;
 // udev output support (print new DEVPATH)
@@ -397,11 +397,11 @@ static int if_takeover_name(int skfd, const char *victimname)
 	len = strlen(victimname);
 	memcpy(autoname, victimname, len + 1);
 	if (len > (IFNAMSIZ - 2))
-		len = IFNAMSIZ - 2;				// Make sure we have at least two char
+		len = IFNAMSIZ - 2;			// Make sure we have at least two char
   
-	len--;										// Convert to index
+	len--;						// Convert to index
 	while (isdigit(autoname[len]))
-		len--;									// Scrap all trailing digits
+		len--;					// Scrap all trailing digits
 
 	strcpy(autoname + len + 1, "%d");
 	if (verbose)
@@ -506,8 +506,7 @@ static int mapping_addmac(struct if_mapping *ifnode, int *active, char *string, 
 	memcpy(ifnode->mac_filter, string, len + 1); 
 	// Check the type of MAC address
 	if (strchr(ifnode->mac_filter, '*') != NULL) {
-		/* This is a wilcard. Usual format : "01:23:45:*"
-		* Unfortunately, we can't do proper parsing. */
+		// This is a wilcard. Usual format : "01:23:45:*". Unfortunately, we can't do proper parsing. 
 		ifnode->active[SELECT_MAC] = HAS_MAC_FILTER;
 		active[SELECT_MAC] = HAS_MAC_FILTER;
 	}
@@ -1058,7 +1057,7 @@ static int mapping_getpcmciaslot(int skfd, const char *ifname, struct if_mapping
 			// Skip space
 			p += strspn(p, " \t\n"); 
 			if (*p == '\0')
-				break;			// Line ended
+				break;		// Line ended
 
 			// Next item size
 			n = strcspn(p, " \t\n");
@@ -1323,7 +1322,7 @@ static int mapping_getsysfs(int skfd, const char *ifname, struct if_mapping *tar
 
 				// We have at least 11 char, see above
 				if (!strcmp(fname + fnsize - 4, "/.."))
-				//	if(!strcmp(fname + strlen(fname) - 3, "/.."))
+			//	if (!strcmp(fname + strlen(fname) - 3, "/.."))
 				{
 					// This procedure to get the realpath is not very nice, but it's the "best practice". Hmm... 
 					int cwd_fd = open(".", O_RDONLY);
@@ -1451,11 +1450,8 @@ static int mapping_getprevname(int skfd, const char *ifname, struct if_mapping *
 
 
 /*********************** MAPPING MANAGEMENTS ***********************/
-/*
- * Manage interface mappings.
- * Each mapping tell us how to identify a specific interface name.
- * It is composed of a bunch of selector values.
- */
+
+// Manage interface mappings. Each mapping tell us how to identify a specific interface name. It is composed of a bunch of selector values.
 
 // Create a new interface mapping and verify its name
 static struct if_mapping *mapping_create(char *pos, int len, int linenum)
@@ -1621,7 +1617,7 @@ static int mapping_readfile(const char *filename)
 				if (e == NULL) {
 					fprintf(stderr, "Error: unterminated selector modifier value on line %d\n", linenum);
 					ret = -1;
-					break;					// Line ended
+					break;				// Line ended
 				}
 				// Fill in struct and hook it
 				extrainfo.modif_pos = p;
